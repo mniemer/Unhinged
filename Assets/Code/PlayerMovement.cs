@@ -17,11 +17,11 @@ public class PlayerMovement : MonoBehaviour {
 	internal void Update () {
         if (moving)
         {
-            float desiredX = gameObject.transform.position.x;
-            float desiredY = gameObject.transform.position.y;
+            float desiredX = transform.position.x;
+            float desiredY = transform.position.y;
             if (direction == 0)
             {
-                desiredX = gameObject.transform.position.x - movementSpeed * Time.deltaTime;
+                desiredX = transform.position.x - movementSpeed * Time.deltaTime;
                 if (desiredX <= goalX)
                 {
                     moving = false;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (direction == 2)
             {
-                desiredX = gameObject.transform.position.x + movementSpeed * Time.deltaTime;
+                desiredX = transform.position.x + movementSpeed * Time.deltaTime;
                 if (desiredX >= goalX)
                 {
                     moving = false;
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (direction == 1)
             {
-                desiredY = gameObject.transform.position.y + movementSpeed * Time.deltaTime;
+                desiredY = transform.position.y + movementSpeed * Time.deltaTime;
                 if (desiredY >= goalY)
                 {
                     moving = false;
@@ -45,13 +45,13 @@ public class PlayerMovement : MonoBehaviour {
             }
             else
             {
-                desiredY = gameObject.transform.position.y - movementSpeed * Time.deltaTime;
+                desiredY = transform.position.y - movementSpeed * Time.deltaTime;
                 if (desiredY <= goalY)
                 {
                     moving = false;
                 }
             }
-            gameObject.transform.position = new Vector3(desiredX, desiredY);
+            transform.position = new Vector3(desiredX, desiredY);
         }
         else
         {
