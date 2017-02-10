@@ -22,11 +22,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             moving = true;
             direction = 2;
-            Debug.Log("OG x goal:");
-            Debug.Log(goalX);
             goalX = transform.position.x + blockSize;
-            //Debug.Log("NEW x goal");
-            //Debug.Log(goalX);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
