@@ -93,5 +93,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             handleKeyInput();
         }
+        if (transform.update.x>(10*blockSize))
+        {
+            Application.Quit();
+        }
     }
 }
