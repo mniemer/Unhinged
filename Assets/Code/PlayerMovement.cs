@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (transform.update.x>(10*blockSize))
         {
-            Application.Quit();
+           // Application.Quit();
         }
     }
 }
