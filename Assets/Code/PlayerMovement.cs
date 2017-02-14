@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    public const float movementSpeed = .5f;
+    public const float movementSpeed = 2f;
     public const float blockSize = .49f;
+    public const float boundaryUp = .5f;
+    public const float boundaryDown = -.5f;
 
     public bool moving;
     public short direction; //0 for left, 1 for up, 2 for right, 3 for down
     public float goalX, goalY;
+    public bool gameOver = false;
+
 	// Use this for initialization
 
 	void Start ()
@@ -41,6 +45,11 @@ public class PlayerMovement : MonoBehaviour {
             moving = true;
             direction = 3;
             goalY = transform.position.y - blockSize;
+        }
+
+        if (goalY > boundaryUp || goalY < boundaryDown)
+        {
+            moving = false;
         }
     }
 
@@ -93,9 +102,17 @@ public class PlayerMovement : MonoBehaviour {
         {
             handleKeyInput();
         }
-        if (transform.update.x>(10*blockSize))
+        if (transform.position.x>(10*blockSize))
         {
-           // Application.Quit();
+            gameOver = true;
+        }
+    }
+
+    void OnGUI()
+    {
+        if (gameOver)
+        {
+            GUI.Label(new Rect(1000, 450, 1000, 500), "You Win!");
         }
     }
 }

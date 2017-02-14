@@ -13,6 +13,7 @@ public class BlockController : MonoBehaviour
     void Start()
     {
         moving = false;
+        goalRotation = transform.rotation.z;
     }
 
     internal void OnColliderEnter2D(Collider2D other)
@@ -44,6 +45,11 @@ public class BlockController : MonoBehaviour
         transform.Rotate(0, 0, rotationDirection * movementSpeed * Time.deltaTime);
     }
 
+    void Update()
+    {
+        rotateBlock();
+    }
+    /*
     //Clear row that is filled coordinate is 0 if it is a horizontal row
     //1 if it is a vertical row
     void clearRow(int coordinate, int number)
@@ -142,7 +148,7 @@ public class BlockController : MonoBehaviour
             }
         }
     }
-
+    
 
     // Update is called once per frame
     void Update()
@@ -306,6 +312,5 @@ public class BlockController : MonoBehaviour
         {
             clearRow(0, yLoc);
         }
-
-    }
+        */
 }
