@@ -1,24 +1,62 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockController : MonoBehaviour
 {
-    public const float movementSpeed = .0005f;
     public bool moving;
-    public float goalRotation;
-    public float rotationDirection; //11 for clockwise, 12 for counterclockwise
+    private float oldRotation;
 
     // Use this for initialization
     void Start()
     {
         moving = false;
-        goalRotation = transform.rotation.z;
+        oldRotation = transform.eulerAngles.z;
     }
 
+    void Update()
+    {
+        float currRotation = transform.eulerAngles.z;
+        if (moving && Math.Abs(currRotation - oldRotation) > 89)
+        {
+            Debug.Log("The block has moved.");
+            if (currRotation <= 1 || (currRotation >= 359 && currRotation <= 361))
+                currRotation = 0;
+            else if (currRotation >= 89 && currRotation <= 91)
+                currRotation = 90;
+            else if (currRotation >= 179 && currRotation <= 181)
+                currRotation = 180;
+            else if (currRotation >= 269 && currRotation <= 271)
+                currRotation = 270;
+            else
+            {
+                Debug.Log("Something is wrong with rotation.");
+            }
+            moving = false;
+            oldRotation = currRotation;
+            snapToRotation(currRotation);
+            transform.parent.GetComponent<GridController>().updateGrid();
+        }
+        else if (!moving)
+        {
+            snapToRotation(oldRotation);
+        }
+    }
+
+    internal void snapToRotation(float desiredRotation)
+    {
+
+        Vector3 snap = new Vector3(0, 0, desiredRotation);
+        //transform.eulerAngles = snap;
+        transform.localEulerAngles = snap;
+    }
+
+    
     internal void OnColliderEnter2D(Collider2D other)
     {
-        Debug.Log("calling onTriggerEnter");
+        Debug.Log("calling Blocks's onTriggerEnter");
+        /*
         if (other.tag.Equals("Player"))
         {
             Debug.Log("inside if statement");
@@ -36,10 +74,13 @@ public class BlockController : MonoBehaviour
             else
                 Debug.Log("Something has gone terribly wrong.");
             moving = true;
+
+
         }
+        */
     }
 
-
+    /*
     internal void rotateBlock()
     {
         transform.Rotate(0, 0, rotationDirection * movementSpeed * Time.deltaTime);
@@ -49,7 +90,7 @@ public class BlockController : MonoBehaviour
     {
         rotateBlock();
     }
-    /*
+    
     //Clear row that is filled coordinate is 0 if it is a horizontal row
     //1 if it is a vertical row
     void clearRow(int coordinate, int number)

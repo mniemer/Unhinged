@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    public const float movementSpeed = 2f;
-    public const float blockSize = .49f;
-    public const float boundaryUp = .5f;
-    public const float boundaryDown = -.5f;
-
+    public const float movementSpeed = 4f;
     public bool moving;
+    public bool updateGrid;
     public short direction; //0 for left, 1 for up, 2 for right, 3 for down
     public float goalX, goalY;
     public bool gameOver = false;
@@ -20,36 +17,80 @@ public class PlayerMovement : MonoBehaviour {
 	    moving = false;
 	}
 
-    void handleKeyInput()
+    internal void handleArrowKeyInput()
     {
+        int currGridX = GameUtility.gameToGridCoord(transform.position.x);
+        int currGridY = GameUtility.gameToGridCoord(transform.position.y);
+        //Debug.Log("transform.position.x: " + transform.position.x);
+        //Debug.Log("transform.position.y: " + transform.position.y);
+        //Debug.Log("currGridX: " + currGridX);
+        //Debug.Log("currGridY: " + currGridY);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            if (currGridX >= 19 ||
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null)
+            {
+               Debug.Log("Hit a boundary.");
+                return;
+            }
             moving = true;
             direction = 2;
-            goalX = transform.position.x + blockSize;
+            goalX = GameUtility.gridToGameCoord(currGridX + 1);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            if (currGridX <= 0 ||
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null)
+            {
+                Debug.Log("Hit a boundary.");
+                return;
+            }
             moving = true;
             direction = 0;
-            goalX = transform.position.x - blockSize;
+            goalX = GameUtility.gridToGameCoord(currGridX - 1);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            if (currGridY >= 19 ||
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null)
+            {
+                Debug.Log("Hit a boundary.");
+                return;
+            }
             moving = true;
             direction = 1;
-            goalY = transform.position.y + blockSize;
+            goalY = GameUtility.gridToGameCoord(currGridY + 1);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            if (currGridY <= 0 ||
+               transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null)
+            {
+                Debug.Log("Hit a boundary.");
+                return;
+            }
             moving = true;
             direction = 3;
-            goalY = transform.position.y - blockSize;
+            goalY = GameUtility.gridToGameCoord(currGridY - 1);
         }
+    }
 
-        if (goalY > boundaryUp || goalY < boundaryDown)
+    internal void handleWASDKeyInput()
+    {
+        int currGridX = GameUtility.gameToGridCoord(transform.position.x);
+        int currGridY = GameUtility.gameToGridCoord(transform.position.y);
+
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            moving = false;
+            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null && 
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].tag.Equals("Block"))
+            {
+                moving = true;
+                direction = 2;
+                goalX = GameUtility.gridToGameCoord(currGridX + 1);
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
+                    .GetComponent<BlockController>().moving = true;
+            }
         }
     }
 
@@ -62,7 +103,9 @@ public class PlayerMovement : MonoBehaviour {
             desiredX = transform.position.x - movementSpeed * Time.deltaTime;
             if (desiredX <= goalX)
             {
+                desiredX = goalX;
                 moving = false;
+                updateGrid = true;
             }
         }
         else if (direction == 2) //right
@@ -70,7 +113,9 @@ public class PlayerMovement : MonoBehaviour {
             desiredX = transform.position.x + movementSpeed * Time.deltaTime;
             if (desiredX >= goalX)
             {
+                desiredX = goalX;
                 moving = false;
+                updateGrid = true;
             }
         }
         else if (direction == 1) //up
@@ -78,7 +123,9 @@ public class PlayerMovement : MonoBehaviour {
             desiredY = transform.position.y + movementSpeed * Time.deltaTime;
             if (desiredY >= goalY)
             {
+                desiredY = goalY;
                 moving = false;
+                updateGrid = true;
             }
         }
         else //down
@@ -86,7 +133,9 @@ public class PlayerMovement : MonoBehaviour {
             desiredY = transform.position.y - movementSpeed * Time.deltaTime;
             if (desiredY <= goalY)
             {
+                desiredY = goalY;
                 moving = false;
+                updateGrid = true;
             }
         }
         transform.position = new Vector3(desiredX, desiredY);
@@ -94,25 +143,25 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (moving)
-        {
-            movePlayer();
-        }
-        else
-        {
-            handleKeyInput();
-        }
-        if (transform.position.x>(10*blockSize))
-        {
-            gameOver = true;
-        }
+	    if (moving)
+	        movePlayer();
+	    else
+	    {
+	        handleArrowKeyInput();
+            handleWASDKeyInput();
+	    }
+
+	    if (updateGrid)
+	    {
+            transform.parent.GetComponent<GridController>().updateGrid();
+            updateGrid = false;
+	    }
+            
+        //if (transform.position.x>(10*blockSize))
+        //{
+        //  gameOver = true;
+        //}
     }
 
-    void OnGUI()
-    {
-        if (gameOver)
-        {
-            GUI.Label(new Rect(1000, 450, 1000, 500), "You Win!");
-        }
-    }
+    
 }
