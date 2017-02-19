@@ -62,6 +62,34 @@ public class GridController : MonoBehaviour {
         
     }
 
+
+    void clearRow()
+    {
+
+        // start by assigning all indeces to null
+        for (int i = 0; i < gridMatrix.GetLength(0); i++)
+        {
+            int blockCounter = 0;
+            for (int j = 0; j < gridMatrix.GetLength(1); j++)
+                if (gridMatrix[i, j].tag.Equals("block"))
+                {
+                    blockCounter++;
+                }
+            if (blockCounter == gridMatrix.GetLength(0))
+            {
+                foreach (Transform child in transform)
+                {
+                    if (child.tag.Equals("block") && child.position.x == i)
+                    {
+                        Destroy(child);
+                    }
+                }
+            }
+        }
+    }
+
+
+
     void OnGUI()
     {
         if (gameOver)
@@ -72,6 +100,8 @@ public class GridController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //clearRow();
         //updateGrid();
+        
 	}
 }
