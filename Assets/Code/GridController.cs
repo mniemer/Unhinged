@@ -8,12 +8,18 @@ public class GridController : MonoBehaviour {
 
     public Transform[,] gridMatrix = new Transform[20,20];
     private bool gameOver;
-
+    private bool clearTest = false;
+    public int arenaLength;
 	// Use this for initialization
 	void Start ()
     {
 	    updateGrid();
-	}
+        float startPos = GameObject.FindGameObjectWithTag("Player").transform.position.x;
+        int gridStartPos = GameUtility.gameToGridCoord(startPos);
+        float endPos = GameObject.FindGameObjectWithTag("Goal").transform.position.x;
+        int gridEndPos = GameUtility.gameToGridCoord(endPos);
+        arenaLength = gridEndPos - gridStartPos;
+    }
 
     internal void updateGrid()
     {
@@ -63,29 +69,43 @@ public class GridController : MonoBehaviour {
     }
 
 
-    void clearRow()
+    internal void clearRow()
     {
 
         // start by assigning all indeces to null
-        for (int i = 0; i < gridMatrix.GetLength(0); i++)
+        int blockCounter = 0;
+        List<int> destructions = new List<int>();
+        for (int j = 8; j < 9; ++j)
         {
-            int blockCounter = 0;
-            for (int j = 0; j < gridMatrix.GetLength(1); j++)
-                if (gridMatrix[i, j].tag.Equals("block"))
-                {
-                    blockCounter++;
-                }
-            if (blockCounter == gridMatrix.GetLength(0))
+           
+            for (int i = 0; i < arenaLength; ++i)
             {
-                foreach (Transform child in transform)
+                if (gridMatrix[i, j] != null)
                 {
-                    if (child.tag.Equals("block") && child.position.x == i)
+                    if (gridMatrix[i, j].tag.Equals("Square") || gridMatrix[i, j].tag.Equals("Block"))
                     {
-                        Destroy(child);
+                        blockCounter++;
                     }
                 }
             }
+            if (blockCounter == arenaLength)
+            {
+                destructions.Add(j);
+            }
         }
+        if (blockCounter == arenaLength)
+        {
+            Debug.Log("CLEAR");
+            foreach (Transform child in transform)
+            {
+                int gridCoordY = GameUtility.gameToGridCoord(child.position.y);
+                if ((child.tag.Equals("Square") || child.tag.Equals("Hinge")) && gridCoordY == destructions[0])
+                {
+                    Destroy(child);
+                }
+            }
+        }
+        
     }
 
 
@@ -99,9 +119,14 @@ public class GridController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        //clearRow();
-        //updateGrid();
+    internal void Update () {
+        clearRow();
+        updateGrid();
+        if (!clearTest)
+        {
+            Debug.Log(arenaLength);
+            clearTest = true;
+        }
         
 	}
 }
