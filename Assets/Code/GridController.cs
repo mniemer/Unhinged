@@ -95,13 +95,26 @@ public class GridController : MonoBehaviour {
         }
         if (blockCounter == arenaLength)
         {
-            Debug.Log("CLEAR");
-            foreach (Transform child in transform)
-            {
-                int gridCoordY = GameUtility.gameToGridCoord(child.position.y);
-                if ((child.tag.Equals("Square") || child.tag.Equals("Hinge")) && gridCoordY == destructions[0])
+            //Debug.Log("CLEAR");
+            foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square")){
+                int squareYCoord = GameUtility.gameToGridCoord(square.transform.position.y);
+                foreach (int j in destructions)
                 {
-                    Destroy(child);
+                    if (j == squareYCoord)
+                    {
+                        Destroy(square);
+                    }
+                }
+            }
+            foreach (GameObject hinge in GameObject.FindGameObjectsWithTag("Hinge"))
+            {
+                int hingeYCoord = GameUtility.gameToGridCoord(hinge.transform.position.y);
+                foreach (int j in destructions)
+                {
+                    if (j == hingeYCoord)
+                    {
+                        Destroy(hinge);
+                    }
                 }
             }
         }
