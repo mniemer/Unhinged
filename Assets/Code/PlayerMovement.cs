@@ -92,6 +92,44 @@ public class PlayerMovement : MonoBehaviour {
                     .GetComponent<BlockController>().moving = true;
             }
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null &&
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY].tag.Equals("Block"))
+            {
+                moving = true;
+                direction = 0;
+                goalX = GameUtility.gridToGameCoord(currGridX - 1);
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY]
+                    .GetComponent<BlockController>().moving = true;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1] != null &&
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1].tag.Equals("Block"))
+            {
+                moving = true;
+                direction = 1;
+                goalY = GameUtility.gridToGameCoord(currGridX + 1);
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1]
+                    .GetComponent<BlockController>().moving = true;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null &&
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1].tag.Equals("Block"))
+            {
+                moving = true;
+                direction = 3;
+                goalY = GameUtility.gridToGameCoord(currGridX - 1);
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY-1]
+                    .GetComponent<BlockController>().moving = true;
+            }
+        }
     }
 
     void movePlayer()
