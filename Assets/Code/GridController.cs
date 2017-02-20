@@ -27,16 +27,6 @@ public class GridController : MonoBehaviour {
         float bottomPos = GameObject.FindGameObjectWithTag("WallBottom").transform.position.y;
         gridBottomPos = GameUtility.gameToGridCoord(bottomPos);
         arenaHeight = gridTopPos - gridBottomPos;
-       /* for (int i = 0; i < gridMatrix.GetLength(0); i++)
-        {
-            for (int j = 0; j < gridMatrix.GetLength(1); j++)
-            {
-                if (gridMatrix[i, j] == null)
-                    Debug.Log("The cell at grid coordinate " + i + ", " + j + " is null.");
-                else
-                    Debug.Log("The cell at grid coordinate " + i + ", " + j + " is " + gridMatrix[i, j].tag + ".");
-            }
-        } */
     }
 
     internal void updateGrid()
@@ -67,7 +57,6 @@ public class GridController : MonoBehaviour {
                 {
                     
                     int gridCoordX = GameUtility.gameToGridCoord(blockChild.position.x);
-                    
                     int gridCoordY = GameUtility.gameToGridCoord(blockChild.position.y);
                     gridMatrix[gridCoordX, gridCoordY] = child;
                 }

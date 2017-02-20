@@ -7,7 +7,7 @@ public static class GameUtility
 {
     public static int gameToGridCoord(float coord)
     {
-        return (int) (coord + 9.5);
+        return Convert.ToInt32(coord + 9.5f);
     }
 
     public static float gridToGameCoord(int coord)
