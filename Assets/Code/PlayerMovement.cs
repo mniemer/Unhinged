@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     public bool gameOver = false;
     public float endX;
     public int steps, pushes=0;
-   
+    public BlockController lastPushedBlock = null;
 
 	// Use this for initialization
 
@@ -96,10 +96,10 @@ public class PlayerMovement : MonoBehaviour {
                 moving = true;
                 direction = 2;
                 goalX = GameUtility.gridToGameCoord(currGridX + 1);
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
-                    .GetComponent<BlockController>().moving = true;
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
-                    .GetComponent<BlockController>().rotationDirection = 1;
+                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
+                    .GetComponent<BlockController>();
+                lastPushedBlock.moving = true;
+                lastPushedBlock.rotationDirection = 1;
             }
         }
         if (Input.GetKeyDown(KeyCode.A))
@@ -111,10 +111,10 @@ public class PlayerMovement : MonoBehaviour {
                 moving = true;
                 direction = 0;
                 goalX = GameUtility.gridToGameCoord(currGridX - 1);
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY]
-                    .GetComponent<BlockController>().moving = true;
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
-                    .GetComponent<BlockController>().rotationDirection = -1;
+                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY]
+                    .GetComponent<BlockController>();
+                lastPushedBlock.moving = true;
+                lastPushedBlock.rotationDirection = -1;
             }
         }
 
@@ -127,8 +127,9 @@ public class PlayerMovement : MonoBehaviour {
                 moving = true;
                 direction = 1;
                 goalY = GameUtility.gridToGameCoord(currGridX + 1);
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1]
-                    .GetComponent<BlockController>().moving = true;
+                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1]
+                    .GetComponent<BlockController>();
+                lastPushedBlock.moving = true;
             }
         }
 
@@ -141,8 +142,9 @@ public class PlayerMovement : MonoBehaviour {
                 moving = true;
                 direction = 3;
                 goalY = GameUtility.gridToGameCoord(currGridX - 1);
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY-1]
-                    .GetComponent<BlockController>().moving = true;
+                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY-1]
+                    .GetComponent<BlockController>();
+                lastPushedBlock.moving = true;
             }
         }
     }
@@ -209,7 +211,15 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (moving)
+        bool blockWait = false;
+        if (lastPushedBlock != null)
+        {
+            if (lastPushedBlock.moving)
+            {
+                blockWait = true;
+            }
+        }
+        if (moving && !blockWait)
 	        movePlayer();
 	    else
 	    {
