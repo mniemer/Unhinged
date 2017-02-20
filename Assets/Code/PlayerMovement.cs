@@ -32,14 +32,9 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             steps++;
-            //Debug.Log("CurrGridX " + currGridX.ToString());
             if (currGridX >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null)
             {
-
-                //Debug.Log("Hit a boundary.");
-                //Debug.Log(transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]);
-                //Debug.Log(transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 2, currGridY]);
                 return;
             }
             moving = true;
@@ -48,6 +43,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            steps++;
             if (currGridX <= 0 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null)
             {
@@ -60,6 +56,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            steps++;
             if (currGridY >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null)
             {
@@ -72,6 +69,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            steps++;
             if (currGridY <= 0 ||
                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null)
             {
