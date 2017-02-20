@@ -5,7 +5,7 @@ using System.Text;
 
 public static class GameUtility
 {
-    public static int gameToGridCoord(double coord)
+    public static int gameToGridCoord(float coord)
     {
         return (int) (coord + 9.5);
     }

@@ -16,6 +16,7 @@ public class BlockController : MonoBehaviour
         moving = false;
         originalHinge = GameObject.FindGameObjectsWithTag("Hinge");
         oldRotation = transform.eulerAngles.z;
+       // Debug.Log(GameUtility.gameToGridCoord(transform.position.x));
     }
 
      void  getHingePos(GameObject[] test)

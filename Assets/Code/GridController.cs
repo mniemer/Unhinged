@@ -27,6 +27,16 @@ public class GridController : MonoBehaviour {
         float bottomPos = GameObject.FindGameObjectWithTag("WallBottom").transform.position.y;
         gridBottomPos = GameUtility.gameToGridCoord(bottomPos);
         arenaHeight = gridTopPos - gridBottomPos;
+       /* for (int i = 0; i < gridMatrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < gridMatrix.GetLength(1); j++)
+            {
+                if (gridMatrix[i, j] == null)
+                    Debug.Log("The cell at grid coordinate " + i + ", " + j + " is null.");
+                else
+                    Debug.Log("The cell at grid coordinate " + i + ", " + j + " is " + gridMatrix[i, j].tag + ".");
+            }
+        } */
     }
 
     internal void updateGrid()
@@ -39,6 +49,7 @@ public class GridController : MonoBehaviour {
         }
 
         // assign all of the gameObjects in the grid to their appropriate spots
+        
         foreach (Transform child in transform)
         {
             //Debug.Log("In the child loop");
@@ -54,12 +65,17 @@ public class GridController : MonoBehaviour {
                 //Debug.Log("Found a block/wall/goal tag");
                 foreach (Transform blockChild in child.transform)
                 {
+                    
                     int gridCoordX = GameUtility.gameToGridCoord(blockChild.position.x);
+                    
                     int gridCoordY = GameUtility.gameToGridCoord(blockChild.position.y);
                     gridMatrix[gridCoordX, gridCoordY] = child;
                 }
             }
         }
+
+        
+       
         /*
         //make sure this shit is right
         for (int i = 0; i < gridMatrix.GetLength(0); i++)

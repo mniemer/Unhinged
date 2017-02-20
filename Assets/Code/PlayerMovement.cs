@@ -32,10 +32,14 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             steps++;
+            //Debug.Log("CurrGridX " + currGridX.ToString());
             if (currGridX >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null)
             {
-               Debug.Log("Hit a boundary.");
+
+                //Debug.Log("Hit a boundary.");
+                //Debug.Log(transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]);
+                //Debug.Log(transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 2, currGridY]);
                 return;
             }
             moving = true;
