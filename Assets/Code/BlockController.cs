@@ -7,16 +7,32 @@ public class BlockController : MonoBehaviour
 {
     public bool moving;
     private float oldRotation;
+    private GameObject[] originalHinge;
 
     // Use this for initialization
     void Start()
     {
         moving = false;
+        originalHinge = GameObject.FindGameObjectsWithTag("Hinge");
         oldRotation = transform.eulerAngles.z;
     }
 
+     void  getHingePos(GameObject[] test)
+    {
+        
+       test=GameObject.FindGameObjectsWithTag("Hinge");
+        
+
+        }
+
     void Update()
     {
+        GameObject[] HingeLoc= GameObject.FindGameObjectsWithTag("Hinge");
+        getHingePos(HingeLoc);
+        for(int i =0; i<HingeLoc.Length;i++)
+        {
+            HingeLoc[i].transform.position = originalHinge[i].transform.position;
+        }
         float currRotation = transform.eulerAngles.z;
         if (moving && Math.Abs(currRotation - oldRotation) > 89)
         {
