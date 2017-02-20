@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour {
     public short direction; //0 for left, 1 for up, 2 for right, 3 for down
     public float goalX, goalY;
     public bool gameOver = false;
+    public float endX;
 
 	// Use this for initialization
 
 	void Start ()
 	{
+        endX = GameUtility.gameToGridCoord(GameObject.FindGameObjectsWithTag("Goal")[0].transform.position.x);
 	    moving = false;
 	}
 
@@ -179,22 +181,40 @@ public class PlayerMovement : MonoBehaviour {
         transform.position = new Vector3(desiredX, desiredY);
     }
 
-	// Update is called once per frame
-	void Update () {
-	    if (moving)
+    void OnGUI()
+    {
+        
+        if (gameOver)
+        {
+            GUI.color = Color.red;
+            GUI.Label(new Rect(10, 10, 1000, 500), "You Win!");
+        }
+    }
+
+
+    // Update is called once per frame
+    void Update () {
+        //Debug.Log("Goal:" + endX);
+        //Debug.Log("Current:" + GameUtility.gameToGridCoord(transform.position.x));
+
+        if (moving)
 	        movePlayer();
 	    else
 	    {
 	        handleArrowKeyInput();
             handleWASDKeyInput();
 	    }
-
+        
 	    if (updateGrid)
 	    {
             transform.parent.GetComponent<GridController>().updateGrid();
             updateGrid = false;
 	    }
-            
+         if(GameUtility.gameToGridCoord(transform.position.x)==endX)
+        {
+            gameOver = true;
+           
+        }
         //if (transform.position.x>(10*blockSize))
         //{
         //  gameOver = true;

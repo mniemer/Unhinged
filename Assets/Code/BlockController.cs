@@ -37,13 +37,13 @@ public class BlockController : MonoBehaviour
         if (moving && Math.Abs(currRotation - oldRotation) > 89)
         {
             Debug.Log("The block has moved.");
-            if (currRotation <= 1 || (currRotation >= 359 && currRotation <= 361))
+            if (currRotation <= 5 || (currRotation >= 355 && currRotation <= 361))
                 currRotation = 0;
-            else if (currRotation >= 89 && currRotation <= 91)
+            else if (currRotation >= 85 && currRotation <= 95)
                 currRotation = 90;
-            else if (currRotation >= 179 && currRotation <= 181)
+            else if (currRotation >= 175 && currRotation <= 185)
                 currRotation = 180;
-            else if (currRotation >= 269 && currRotation <= 271)
+            else if (currRotation >= 265 && currRotation <= 275)
                 currRotation = 270;
             else
             {
