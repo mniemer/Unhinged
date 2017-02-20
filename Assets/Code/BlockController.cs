@@ -68,14 +68,29 @@ public class BlockController : MonoBehaviour
         int gridXCoord, gridYCoord;
         if (moving)
         {
+            Debug.Log(originalGrid[5, 10]);
             foreach (SquareController child in GetComponentsInChildren<SquareController>())
             {
                 gridXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
                 gridYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
-                Debug.Log("X COORD: " + gridXCoord.ToString());
-                Debug.Log("Y COOORD: " + gridYCoord.ToString());
-                if (originalGrid[gridXCoord, gridYCoord] != null && gridXCoord != child.lastXCoord && gridYCoord != child.lastYCoord)
+                if ((originalGrid[gridXCoord, gridYCoord] != null) && !inOriginalBlock(gridXCoord, gridYCoord))
                 {
+                    Debug.Log(originalGrid[5, 10]);
+                    /*
+                    Debug.Log(child);
+                    Debug.Log(child.tag);
+                    Debug.Log("transform x: " +child.transform.position.x.ToString());
+                    Debug.Log("gridx coord: " + gridXCoord.ToString());
+                    Debug.Log("original x: " + child.lastXCoord.ToString());
+                    Debug.Log("gridy coord: " + gridYCoord.ToString());
+                    Debug.Log("original y: " + child.lastYCoord.ToString());
+                    Debug.Log("IN BLOCK: " + inOriginalBlock(gridXCoord, gridYCoord).ToString());
+                    Debug.Log("originalgrid != null: " + (originalGrid[gridXCoord, gridYCoord] != null).ToString());
+                    Debug.Log("gridx != child x: " + (gridXCoord != child.lastXCoord).ToString());
+                    Debug.Log("gridy != child y: " + (gridYCoord != child.lastYCoord).ToString());
+                    Debug.Log("Original object: " + originalGrid[gridXCoord, gridYCoord].ToString());
+                    Debug.Log("Original x pos: " + GameUtility.gridToGameCoord(gridXCoord).ToString());
+                    Debug.Log("original y pos: " + GameUtility.gridToGameCoord(gridYCoord).ToString()); */
                     transform.eulerAngles = new Vector3(
                     transform.eulerAngles.x,
                     transform.eulerAngles.y,
@@ -88,7 +103,24 @@ public class BlockController : MonoBehaviour
             }
         }
     }
+    private bool inOriginalBlock(int gridXCoord, int gridYCoord)
+    {
 
+        //Debug.Log("GRIDX : " + gridXCoord.ToString());
+        //Debug.Log("GRIDY: " + gridYCoord.ToString());
+        foreach (SquareController child in GetComponentsInChildren<SquareController>())
+        {
+         //   Debug.Log("Original x: " + child.lastXCoord);
+          //  Debug.Log("oriignal y: " + child.lastYCoord);
+            if ((child.lastXCoord == gridXCoord) && (gridYCoord == child.lastYCoord))
+            {
+               // Debug.Log("TRUEEEE");
+                return true;
+            }
+        }
+        Debug.Log("FALSEEE");
+        return false;
+    }
     internal void snapToRotation(float desiredRotation)
     {
 

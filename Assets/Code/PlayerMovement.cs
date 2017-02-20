@@ -86,11 +86,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         int currGridX = GameUtility.gameToGridCoord(transform.position.x);
         int currGridY = GameUtility.gameToGridCoord(transform.position.y);
-       
         if (Input.GetKeyDown(KeyCode.D))
         {
             pushes++;
-            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null && 
+            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].tag.Equals("Block"))
             {
                 moving = true;
@@ -101,10 +100,13 @@ public class PlayerMovement : MonoBehaviour {
                 lastPushedBlock.moving = true;
                 lastPushedBlock.rotationDirection = 1;
                 lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = transform.parent.GetComponent<GridController>().gridMatrix;
+                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
+                Debug.Log( transform.parent.GetComponent<GridController>().gridMatrix[5, 10]);
+                Debug.Log(lastPushedBlock.originalGrid[5, 10]);
                 foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
+                       
                     child.lastYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
                 }
             }
@@ -123,7 +125,7 @@ public class PlayerMovement : MonoBehaviour {
                 lastPushedBlock.moving = true;
                 lastPushedBlock.rotationDirection = -1;
                 lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = transform.parent.GetComponent<GridController>().gridMatrix;
+                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
                 foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
@@ -135,17 +137,17 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.W))
         {
             pushes++;
-            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1] != null &&
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1].tag.Equals("Block"))
+            if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null &&
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1].tag.Equals("Block"))
             {
                 moving = true;
                 direction = 1;
                 goalY = GameUtility.gridToGameCoord(currGridX + 1);
-                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1]
+                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1]
                     .GetComponent<BlockController>();
                 lastPushedBlock.moving = true;
                 lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = transform.parent.GetComponent<GridController>().gridMatrix;
+                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
                 foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
@@ -163,17 +165,18 @@ public class PlayerMovement : MonoBehaviour {
                 moving = true;
                 direction = 3;
                 goalY = GameUtility.gridToGameCoord(currGridX - 1);
-                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY-1]
+                lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1]
                     .GetComponent<BlockController>();
                 lastPushedBlock.moving = true;
                 lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = transform.parent.GetComponent<GridController>().gridMatrix;
+                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
                 foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
                     child.lastYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
                 }
             }
+        
         }
     }
 
