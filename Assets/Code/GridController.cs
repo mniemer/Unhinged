@@ -10,6 +10,9 @@ public class GridController : MonoBehaviour {
     private bool gameOver;
     private bool clearTest = false;
     public int arenaLength;
+    public int arenaHeight;
+    public int gridBottomPos;
+    public int gridTopPos;
 	// Use this for initialization
 	void Start ()
     {
@@ -19,6 +22,11 @@ public class GridController : MonoBehaviour {
         float endPos = GameObject.FindGameObjectWithTag("Goal").transform.position.x;
         int gridEndPos = GameUtility.gameToGridCoord(endPos);
         arenaLength = gridEndPos - gridStartPos;
+        float topPos = GameObject.FindGameObjectWithTag("WallTop").transform.position.y;
+        gridTopPos = GameUtility.gameToGridCoord(topPos);
+        float bottomPos = GameObject.FindGameObjectWithTag("WallBottom").transform.position.y;
+        gridBottomPos = GameUtility.gameToGridCoord(bottomPos);
+        arenaHeight = gridTopPos - gridBottomPos;
     }
 
     internal void updateGrid()
@@ -75,7 +83,7 @@ public class GridController : MonoBehaviour {
         // start by assigning all indeces to null
         int blockCounter = 0;
         List<int> destructions = new List<int>();
-        for (int j = 8; j < 9; ++j)
+        for (int j = gridBottomPos; j <= gridTopPos; ++j)
         {
            
             for (int i = 0; i < arenaLength; ++i)
