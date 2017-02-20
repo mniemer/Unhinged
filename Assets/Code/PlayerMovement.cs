@@ -198,7 +198,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         GUI.color = Color.red;
         GUI.Label(new Rect(10, 10, 1000, 500), "Steps:"+steps);
-        GUI.Label(new Rect(10, 25, 1000, 500), "Pusehs:"+pushes);
+        GUI.Label(new Rect(10, 25, 1000, 500), "Pushes:"+pushes);
         if (gameOver)
         {
             
@@ -209,9 +209,6 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //Debug.Log("Goal:" + endX);
-        //Debug.Log("Current:" + GameUtility.gameToGridCoord(transform.position.x));
-
         if (moving)
 	        movePlayer();
 	    else
