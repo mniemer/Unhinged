@@ -8,7 +8,8 @@ public class BlockController : MonoBehaviour
     public bool moving;
     private float oldRotation;
     private GameObject[] originalHinge;
-
+    public short rotationDirection = 1; // counter clockwise == -1, clockwise == 1;
+    private float rotationSpeed = .8f;
     // Use this for initialization
     void Start()
     {
@@ -34,7 +35,7 @@ public class BlockController : MonoBehaviour
             HingeLoc[i].transform.position = originalHinge[i].transform.position;
         }
         float currRotation = transform.eulerAngles.z;
-        if (moving && Math.Abs(currRotation - oldRotation) > 89)
+        if (moving && Math.Abs(currRotation - oldRotation) >= 85)
         {
             Debug.Log("The block has moved.");
             if (currRotation <= 5 || (currRotation >= 355 && currRotation <= 361))
@@ -57,6 +58,13 @@ public class BlockController : MonoBehaviour
         else if (!moving)
         {
             snapToRotation(oldRotation);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(
+                transform.eulerAngles.x, 
+                transform.eulerAngles.y, 
+                transform.eulerAngles.z - (rotationDirection * rotationSpeed));
         }
     }
 

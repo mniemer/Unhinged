@@ -96,6 +96,8 @@ public class PlayerMovement : MonoBehaviour {
                 goalX = GameUtility.gridToGameCoord(currGridX + 1);
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
                     .GetComponent<BlockController>().moving = true;
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
+                    .GetComponent<BlockController>().rotationDirection = 1;
             }
         }
         if (Input.GetKeyDown(KeyCode.A))
@@ -109,6 +111,8 @@ public class PlayerMovement : MonoBehaviour {
                 goalX = GameUtility.gridToGameCoord(currGridX - 1);
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY]
                     .GetComponent<BlockController>().moving = true;
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
+                    .GetComponent<BlockController>().rotationDirection = -1;
             }
         }
 
