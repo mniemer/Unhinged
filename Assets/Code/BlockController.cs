@@ -6,25 +6,23 @@ using UnityEngine;
 public class BlockController : MonoBehaviour
 {
     public bool moving;
-    private float oldRotation;
+    public float oldRotation;
     private GameObject[] originalHinge;
     public short rotationDirection = 1; // counter clockwise == -1, clockwise == 1;
-    private float rotationSpeed = .8f;
+    private float rotationSpeed = 1.0f;
+    public Transform[,] originalGrid;
     // Use this for initialization
     void Start()
     {
         moving = false;
         originalHinge = GameObject.FindGameObjectsWithTag("Hinge");
         oldRotation = transform.eulerAngles.z;
-       // Debug.Log(GameUtility.gameToGridCoord(transform.position.x));
     }
 
      void  getHingePos(GameObject[] test)
     {
         
        test=GameObject.FindGameObjectsWithTag("Hinge");
-        
-
         }
 
     void Update()
@@ -66,6 +64,26 @@ public class BlockController : MonoBehaviour
                 transform.eulerAngles.x, 
                 transform.eulerAngles.y, 
                 transform.eulerAngles.z - (rotationDirection * rotationSpeed));
+        }
+        int gridXCoord, gridYCoord;
+        if (moving)
+        {
+            foreach (SquareController child in GetComponentsInChildren<SquareController>())
+            {
+                gridXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
+                gridYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
+                Debug.Log("X COORD: " + gridXCoord.ToString());
+                Debug.Log("Y COOORD: " + gridYCoord.ToString());
+                if (originalGrid[gridXCoord, gridYCoord] != null && gridXCoord != child.lastXCoord && gridYCoord != child.lastYCoord)
+                {
+                    transform.eulerAngles = new Vector3(
+                    transform.eulerAngles.x,
+                    transform.eulerAngles.y,
+                    oldRotation);
+                    moving = false;
+                    break;
+                }
+            }
         }
     }
 
