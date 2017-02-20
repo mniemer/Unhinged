@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
     public float goalX, goalY;
     public bool gameOver = false;
     public float endX;
+    public int steps, pushes=0;
+   
 
 	// Use this for initialization
 
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour {
         //Debug.Log("currGridY: " + currGridY);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            steps++;
             if (currGridX >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null)
             {
@@ -81,9 +84,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         int currGridX = GameUtility.gameToGridCoord(transform.position.x);
         int currGridY = GameUtility.gameToGridCoord(transform.position.y);
-
+       
         if (Input.GetKeyDown(KeyCode.D))
         {
+            pushes++;
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null && 
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].tag.Equals("Block"))
             {
@@ -96,6 +100,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
+            pushes++;
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY].tag.Equals("Block"))
             {
@@ -109,6 +114,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.W))
         {
+            pushes++;
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY+1].tag.Equals("Block"))
             {
@@ -122,6 +128,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.S))
         {
+            pushes++;
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1].tag.Equals("Block"))
             {
@@ -183,11 +190,13 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnGUI()
     {
-        
+        GUI.color = Color.red;
+        GUI.Label(new Rect(10, 10, 1000, 500), "Steps:"+steps);
+        GUI.Label(new Rect(10, 25, 1000, 500), "Pusehs:"+pushes);
         if (gameOver)
         {
-            GUI.color = Color.red;
-            GUI.Label(new Rect(10, 10, 1000, 500), "You Win!");
+            
+            GUI.Label(new Rect(400, 10, 1000, 500), "You Win!");
         }
     }
 
