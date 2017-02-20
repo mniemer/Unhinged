@@ -81,6 +81,8 @@ public class BlockController : MonoBehaviour
                     transform.eulerAngles.y,
                     oldRotation);
                     moving = false;
+                    GameObject p = GameObject.FindGameObjectWithTag("Player");
+                    p.GetComponent<PlayerMovement>().moving = false;
                     break;
                 }
             }
