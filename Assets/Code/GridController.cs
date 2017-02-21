@@ -13,7 +13,6 @@ public class GridController : MonoBehaviour {
     public int arenaHeight;
     public int gridBottomPos;
     public int gridTopPos;
-    private bool destroy = false;
 	// Use this for initialization
 	void Start ()
     {
@@ -51,7 +50,7 @@ public class GridController : MonoBehaviour {
                 int gridCoordY = GameUtility.gameToGridCoord(child.position.y);
                 gridMatrix[gridCoordX, gridCoordY] = child;
             }
-            else if (child.tag.Equals("Block") || child.tag.Equals("Wall"))
+            else if (child.tag.Equals("Block") || child.tag.Equals("WallTop") || child.tag.Equals("WallBottom") || child.tag.Equals("Wall"))
             {
                 //Debug.Log("Found a block/wall/goal tag");
                 foreach (Transform blockChild in child.transform)
@@ -102,20 +101,15 @@ public class GridController : MonoBehaviour {
                     }
                 }
             }
-            if (blockCounter == arenaLength && !destroy)
+            if (blockCounter == arenaLength && !destructions.Contains(j))
             {
                 destructions.Add(j);
-                Debug.Log("DESTROY");
-                destroy = true;
             }
         }
-        //Debug.Log(blockCounter);
-        //Debug.Log(arenaLength);
-        if (destroy)
+        if (destructions.Count > 0)
         {
             Debug.Log("CLEAR");
             foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square")){
-                Debug.Log("WE HAVE SQUARE");
                 int squareYCoord = GameUtility.gameToGridCoord(square.transform.position.y);
                 foreach (int j in destructions)
                 {
