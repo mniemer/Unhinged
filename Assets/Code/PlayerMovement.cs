@@ -101,8 +101,7 @@ public class PlayerMovement : MonoBehaviour {
                 lastPushedBlock.rotationDirection = 1;
                 lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
                 lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
-                Debug.Log( transform.parent.GetComponent<GridController>().gridMatrix[5, 10]);
-                Debug.Log(lastPushedBlock.originalGrid[5, 10]);
+               
                 foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);

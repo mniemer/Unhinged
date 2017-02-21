@@ -13,6 +13,7 @@ public class GridController : MonoBehaviour {
     public int arenaHeight;
     public int gridBottomPos;
     public int gridTopPos;
+    private bool destroy = false;
 	// Use this for initialization
 	void Start ()
     {
@@ -90,26 +91,31 @@ public class GridController : MonoBehaviour {
         List<int> destructions = new List<int>();
         for (int j = gridBottomPos; j <= gridTopPos; ++j)
         {
-           
+            blockCounter = 0;
             for (int i = 0; i < arenaLength; ++i)
             {
                 if (gridMatrix[i, j] != null)
                 {
-                    if (gridMatrix[i, j].tag.Equals("Square") || gridMatrix[i, j].tag.Equals("Block"))
+                    if (gridMatrix[i, j].tag.Equals("Square") || gridMatrix[i, j].tag.Equals("Block") || gridMatrix[i, j].tag.Equals("Hinge"))
                     {
                         blockCounter++;
                     }
                 }
             }
-            if (blockCounter == arenaLength)
+            if (blockCounter == arenaLength && !destroy)
             {
                 destructions.Add(j);
+                Debug.Log("DESTROY");
+                destroy = true;
             }
         }
-        if (blockCounter == arenaLength)
+        //Debug.Log(blockCounter);
+        //Debug.Log(arenaLength);
+        if (destroy)
         {
-            //Debug.Log("CLEAR");
+            Debug.Log("CLEAR");
             foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square")){
+                Debug.Log("WE HAVE SQUARE");
                 int squareYCoord = GameUtility.gameToGridCoord(square.transform.position.y);
                 foreach (int j in destructions)
                 {

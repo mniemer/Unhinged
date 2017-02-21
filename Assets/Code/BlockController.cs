@@ -68,7 +68,7 @@ public class BlockController : MonoBehaviour
         int gridXCoord, gridYCoord;
         if (moving)
         {
-            Debug.Log(originalGrid[5, 10]);
+           // Debug.Log(originalGrid[5, 10]);
             foreach (SquareController child in GetComponentsInChildren<SquareController>())
             {
                 gridXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
