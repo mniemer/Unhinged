@@ -90,26 +90,47 @@ public class PlayerMovement : MonoBehaviour {
         int currGridY = GameUtility.gameToGridCoord(transform.position.y);
         if (Input.GetKeyDown(KeyCode.D))
         {
-            pushes++;
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].tag.Equals("Block"))
             {
-                moving = true;
-                direction = 2;
-                goalX = GameUtility.gridToGameCoord(currGridX + 1);
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
                     .GetComponent<BlockController>();
-                lastPushedBlock.moving = true;
-                lastPushedBlock.rotationDirection = 1;
-                lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
-               
-                foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
+                SquareController[] children = lastPushedBlock.GetComponentsInChildren<SquareController>();
+                Vector3 hingePos;
+                hingePos.x = 0;
+                hingePos.y = 0;
+                foreach (SquareController child in children)
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
-                       
                     child.lastYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
+                    if (child.tag == "Hinge")
+                    {
+                        hingePos.x = child.transform.position.x;
+                        hingePos.y = child.transform.position.y;
+                    }
                 }
+                int hingeGridY = GameUtility.gameToGridCoord(hingePos.y);
+                if(hingeGridY != currGridY)
+                {
+                    pushes++;
+                    moving = true;
+                    direction = 2;
+                    goalX = GameUtility.gridToGameCoord(currGridX + 1);
+                    lastPushedBlock.moving = true;
+                    if (hingeGridY > currGridY)
+                    {
+                        Debug.Log("Hinge is OVERNEATH");
+                        lastPushedBlock.rotationDirection = -1;
+                    }
+                    else
+                    {
+                        Debug.Log("Hinge is  UNDERNEATH");
+                        lastPushedBlock.rotationDirection = 1;
+                    }
+                    lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
+                    lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
+                }
+
             }
         }
         if (Input.GetKeyDown(KeyCode.A))
