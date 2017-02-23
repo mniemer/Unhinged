@@ -134,8 +134,6 @@ public class GridController : MonoBehaviour {
         
     }
 
-
-
     void OnGUI()
     {
         if (gameOver)
