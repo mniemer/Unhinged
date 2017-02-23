@@ -68,29 +68,14 @@ public class BlockController : MonoBehaviour
         int gridXCoord, gridYCoord;
         if (moving)
         {
-           // Debug.Log(originalGrid[5, 10]);
             foreach (SquareController child in GetComponentsInChildren<SquareController>())
             {
                 gridXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
                 gridYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
+                Debug.Log(child);
+                 
                 if ((originalGrid[gridXCoord, gridYCoord] != null) && !inOriginalBlock(gridXCoord, gridYCoord))
                 {
-                    Debug.Log(originalGrid[5, 10]);
-                    /*
-                    Debug.Log(child);
-                    Debug.Log(child.tag);
-                    Debug.Log("transform x: " +child.transform.position.x.ToString());
-                    Debug.Log("gridx coord: " + gridXCoord.ToString());
-                    Debug.Log("original x: " + child.lastXCoord.ToString());
-                    Debug.Log("gridy coord: " + gridYCoord.ToString());
-                    Debug.Log("original y: " + child.lastYCoord.ToString());
-                    Debug.Log("IN BLOCK: " + inOriginalBlock(gridXCoord, gridYCoord).ToString());
-                    Debug.Log("originalgrid != null: " + (originalGrid[gridXCoord, gridYCoord] != null).ToString());
-                    Debug.Log("gridx != child x: " + (gridXCoord != child.lastXCoord).ToString());
-                    Debug.Log("gridy != child y: " + (gridYCoord != child.lastYCoord).ToString());
-                    Debug.Log("Original object: " + originalGrid[gridXCoord, gridYCoord].ToString());
-                    Debug.Log("Original x pos: " + GameUtility.gridToGameCoord(gridXCoord).ToString());
-                    Debug.Log("original y pos: " + GameUtility.gridToGameCoord(gridYCoord).ToString()); */
                     transform.eulerAngles = new Vector3(
                     transform.eulerAngles.x,
                     transform.eulerAngles.y,

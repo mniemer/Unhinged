@@ -45,7 +45,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             steps++;
             if (currGridX <= 0 ||
-                transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null)
+                transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null
+                
+                )
             {
                 Debug.Log("Hit a boundary.");
                 return;
