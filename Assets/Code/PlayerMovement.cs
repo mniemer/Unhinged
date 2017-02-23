@@ -119,12 +119,10 @@ public class PlayerMovement : MonoBehaviour {
                     lastPushedBlock.moving = true;
                     if (hingeGridY > currGridY)
                     {
-                        Debug.Log("Hinge is OVERNEATH");
                         lastPushedBlock.rotationDirection = -1;
                     }
                     else
                     {
-                        Debug.Log("Hinge is  UNDERNEATH");
                         lastPushedBlock.rotationDirection = 1;
                     }
                     lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
