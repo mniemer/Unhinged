@@ -180,18 +180,39 @@ public class PlayerMovement : MonoBehaviour {
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1].tag.Equals("Block"))
             {
-                moving = true;
-                direction = 1;
-                goalY = GameUtility.gridToGameCoord(currGridX + 1);
+
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1]
                     .GetComponent<BlockController>();
-                lastPushedBlock.moving = true;
-                lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
-                foreach (SquareController child in lastPushedBlock.GetComponentsInChildren<SquareController>())
+                Vector3 hingePos;
+                hingePos.x = 0;
+                hingePos.y = 0;
+                foreach (SquareController child in children)
                 {
                     child.lastXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
                     child.lastYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
+                    if (child.tag == "Hinge")
+                    {
+                        hingePos.x = child.transform.position.x;
+                        hingePos.y = child.transform.position.y;
+                    }
+                }
+                int hingeGridX = GameUtility.gameToGridCoord(hingePos.x);
+                if (hingeGridX != currGridX)
+                {
+                    moving = true;
+                    direction = 1;
+                    goalY = GameUtility.gridToGameCoord(currGridY + 1);
+                    lastPushedBlock.moving = true;
+                    lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
+                    if (hingeGridX > currGridX)
+                    {
+                        lastPushedBlock.rotationDirection = -1;
+                    }
+                    else
+                    {
+                        lastPushedBlock.rotationDirection = 1;
+                    }
+                    lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
                 }
             }
         }
@@ -204,7 +225,7 @@ public class PlayerMovement : MonoBehaviour {
             {
                 moving = true;
                 direction = 3;
-                goalY = GameUtility.gridToGameCoord(currGridX - 1);
+                goalY = GameUtility.gridToGameCoord(currGridY - 1);
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1]
                     .GetComponent<BlockController>();
                 lastPushedBlock.moving = true;
