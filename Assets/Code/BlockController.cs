@@ -9,7 +9,7 @@ public class BlockController : MonoBehaviour
     public float oldRotation;
     private GameObject[] originalHinge;
     public short rotationDirection = 1; // counter clockwise == -1, clockwise == 1;
-    private float rotationSpeed = 1.0f;
+    private float rotationSpeed = 1.5f;
     public Transform[,] originalGrid;
     // Use this for initialization
     void Start()

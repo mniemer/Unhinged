@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    public const float movementSpeed = 4f;
+    public const float movementSpeed = 4.5f;
     public bool moving;
     public bool updateGrid;
     public short direction; //0 for left, 1 for up, 2 for right, 3 for down
