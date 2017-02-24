@@ -207,11 +207,11 @@ public class PlayerMovement : MonoBehaviour {
                     lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
                     if (hingeGridX > currGridX)
                     {
-                        lastPushedBlock.rotationDirection = -1;
+                        lastPushedBlock.rotationDirection = 1;
                     }
                     else
                     {
-                        lastPushedBlock.rotationDirection = 1;
+                        lastPushedBlock.rotationDirection = -1;
                     }
                     lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
                 }
@@ -241,14 +241,26 @@ public class PlayerMovement : MonoBehaviour {
                         hingePos.y = child.transform.position.y;
                     }
                 }
-                
-                pushes++;
-                moving = true;
-                direction = 3;
-                goalY = GameUtility.gridToGameCoord(currGridY - 1);
-                lastPushedBlock.moving = true;
-                lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
+
+                int hingeGridX = GameUtility.gameToGridCoord(hingePos.x);
+                if (hingeGridX != currGridX)
+                {
+                    pushes++;
+                    moving = true;
+                    direction = 3;
+                    goalY = GameUtility.gridToGameCoord(currGridY - 1);
+                    lastPushedBlock.moving = true;
+                    lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
+                    if(hingeGridX > currGridX)
+                    {
+                        lastPushedBlock.rotationDirection = -1;
+                    }
+                    else
+                    {
+                        lastPushedBlock.rotationDirection = 1;
+                    }
+                    lastPushedBlock.originalGrid = (Transform[,])transform.parent.GetComponent<GridController>().gridMatrix.Clone();
+                }
             }
         
         }
