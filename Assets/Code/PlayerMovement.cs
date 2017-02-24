@@ -25,59 +25,56 @@ public class PlayerMovement : MonoBehaviour {
     {
         int currGridX = GameUtility.gameToGridCoord(transform.position.x);
         int currGridY = GameUtility.gameToGridCoord(transform.position.y);
-        //Debug.Log("transform.position.x: " + transform.position.x);
-        //Debug.Log("transform.position.y: " + transform.position.y);
-        //Debug.Log("currGridX: " + currGridX);
-        //Debug.Log("currGridY: " + currGridY);
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            steps++;
             if (currGridX >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null)
             {
                 return;
             }
+
+            steps++;
             moving = true;
             direction = 2;
             goalX = GameUtility.gridToGameCoord(currGridX + 1);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            steps++;
             if (currGridX <= 0 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null
                 
                 )
             {
-                Debug.Log("Hit a boundary.");
                 return;
             }
+
+            steps++;
             moving = true;
             direction = 0;
             goalX = GameUtility.gridToGameCoord(currGridX - 1);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            steps++;
             if (currGridY >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null)
             {
-                Debug.Log("Hit a boundary.");
                 return;
             }
+
+            steps++;
             moving = true;
             direction = 1;
             goalY = GameUtility.gridToGameCoord(currGridY + 1);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            steps++;
             if (currGridY <= 0 ||
                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null)
             {
-                Debug.Log("Hit a boundary.");
                 return;
             }
+
+            steps++;
             moving = true;
             direction = 3;
             goalY = GameUtility.gridToGameCoord(currGridY - 1);
