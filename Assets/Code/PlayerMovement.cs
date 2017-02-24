@@ -248,7 +248,8 @@ public class PlayerMovement : MonoBehaviour {
                     goalY = GameUtility.gridToGameCoord(currGridY - 1);
                     lastPushedBlock.moving = true;
                     lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
-                    if(hingeGridX > currGridX)
+                  
+                    if (hingeGridX > currGridX)
                     {
                         lastPushedBlock.rotationDirection = -1;
                     }

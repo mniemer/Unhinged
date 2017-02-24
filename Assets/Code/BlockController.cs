@@ -34,7 +34,13 @@ public class BlockController : MonoBehaviour
             HingeLoc[i].transform.position = originalHinge[i].transform.position;
         }
         float currRotation = transform.eulerAngles.z;
-        if (moving && Math.Abs(currRotation - oldRotation) >= 85)
+        if (moving)
+        {
+
+            Debug.Log("curr rot: " + currRotation.ToString());
+            Debug.Log("old rot: " + oldRotation.ToString());
+        }
+        if (moving && Math.Abs(currRotation - oldRotation) >= 85 && Math.Abs(currRotation - oldRotation) <=275)
         {
             Debug.Log("The block has moved.");
             if (currRotation <= 5 || (currRotation >= 355 && currRotation <= 361))
@@ -72,7 +78,6 @@ public class BlockController : MonoBehaviour
             {
                 gridXCoord = GameUtility.gameToGridCoord(child.transform.position.x);
                 gridYCoord = GameUtility.gameToGridCoord(child.transform.position.y);
-                Debug.Log(child);
                  
                 if ((originalGrid[gridXCoord, gridYCoord] != null) && !inOriginalBlock(gridXCoord, gridYCoord))
                 {
