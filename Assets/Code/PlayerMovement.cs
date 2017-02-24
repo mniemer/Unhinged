@@ -110,9 +110,6 @@ public class PlayerMovement : MonoBehaviour {
                 if(hingeGridY != currGridY)
                 {
                     pushes++;
-                    moving = true;
-                    direction = 2;
-                    goalX = GameUtility.gridToGameCoord(currGridX + 1);
                     lastPushedBlock.moving = true;
                     if (hingeGridY > currGridY)
                     {
@@ -153,9 +150,6 @@ public class PlayerMovement : MonoBehaviour {
                 if (hingeGridY != currGridY)
                 {
                     pushes++;
-                    moving = true;
-                    direction = 0;
-                    goalX = GameUtility.gridToGameCoord(currGridX - 1);
                     lastPushedBlock.moving = true;
                     if (hingeGridY > currGridY)
                     {
@@ -197,9 +191,6 @@ public class PlayerMovement : MonoBehaviour {
                 int hingeGridX = GameUtility.gameToGridCoord(hingePos.x);
                 if (hingeGridX != currGridX)
                 {
-                    moving = true;
-                    direction = 1;
-                    goalY = GameUtility.gridToGameCoord(currGridY + 1);
                     lastPushedBlock.moving = true;
                     lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
                     if (hingeGridX > currGridX)
@@ -243,9 +234,6 @@ public class PlayerMovement : MonoBehaviour {
                 if (hingeGridX != currGridX)
                 {
                     pushes++;
-                    moving = true;
-                    direction = 3;
-                    goalY = GameUtility.gridToGameCoord(currGridY - 1);
                     lastPushedBlock.moving = true;
                     lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
                   

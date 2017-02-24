@@ -88,6 +88,7 @@ public class BlockController : MonoBehaviour
                     moving = false;
                     GameObject p = GameObject.FindGameObjectWithTag("Player");
                     p.GetComponent<PlayerMovement>().moving = false;
+                    p.GetComponent<PlayerMovement>().pushes -= 1;
                     break;
                 }
             }
