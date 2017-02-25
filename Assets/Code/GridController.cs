@@ -13,15 +13,20 @@ public class GridController : MonoBehaviour {
     public int arenaHeight;
     public int gridBottomPos;
     public int gridTopPos;
+    public int gridLeftPos;
+    public int gridRightPos;
 	// Use this for initialization
 	void Start ()
     {
 	    updateGrid();
         float startPos = GameObject.FindGameObjectWithTag("Player").transform.position.x;
-        int gridStartPos = GameUtility.gameToGridCoord(startPos);
-        float endPos = GameObject.FindGameObjectWithTag("Goal").transform.position.x;
-        int gridEndPos = GameUtility.gameToGridCoord(endPos);
-        arenaLength = gridEndPos - gridStartPos;
+        int playerStartPos = GameUtility.gameToGridCoord(startPos);
+        float rightPos = GameObject.FindGameObjectWithTag("WallRight").transform.position.x;
+        gridRightPos = GameUtility.gameToGridCoord(rightPos);
+        float leftPos = GameObject.FindGameObjectWithTag("WallLeft").transform.position.x;
+        gridLeftPos = GameUtility.gameToGridCoord(leftPos);
+        arenaLength = gridRightPos - gridLeftPos - 1;
+
         float topPos = GameObject.FindGameObjectWithTag("WallTop").transform.position.y;
         gridTopPos = GameUtility.gameToGridCoord(topPos);
         float bottomPos = GameObject.FindGameObjectWithTag("WallBottom").transform.position.y;
@@ -96,7 +101,7 @@ public class GridController : MonoBehaviour {
         for (int j = gridBottomPos; j <= gridTopPos; ++j)
         {
             blockCounter = 0;
-            for (int i = 0; i < arenaLength; ++i)
+            for (int i = gridLeftPos; i <= gridRightPos; ++i)
             {
                 if (gridMatrix[i, j] != null)
                 {

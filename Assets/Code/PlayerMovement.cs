@@ -87,6 +87,9 @@ public class PlayerMovement : MonoBehaviour {
         int currGridY = GameUtility.gameToGridCoord(transform.position.y);
         if (Input.GetKeyDown(KeyCode.D))
         {
+            transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
+            pushes++;
+
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].tag.Equals("Block"))
             {
@@ -109,7 +112,6 @@ public class PlayerMovement : MonoBehaviour {
                 int hingeGridY = GameUtility.gameToGridCoord(hingePos.y);
                 if(hingeGridY != currGridY)
                 {
-                    pushes++;
                     lastPushedBlock.moving = true;
                     if (hingeGridY > currGridY)
                     {
@@ -127,6 +129,9 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
+            transform.GetChild(0).GetComponent<Animation>().Play("pushLeft");
+            pushes++;
+
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY].tag.Equals("Block"))
             {
@@ -149,7 +154,6 @@ public class PlayerMovement : MonoBehaviour {
                 int hingeGridY = GameUtility.gameToGridCoord(hingePos.y);
                 if (hingeGridY != currGridY)
                 {
-                    pushes++;
                     lastPushedBlock.moving = true;
                     if (hingeGridY > currGridY)
                     {
@@ -167,7 +171,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.W))
         {
+            transform.GetChild(0).GetComponent<Animation>().Play("pushUp");
             pushes++;
+
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1].tag.Equals("Block"))
             {
@@ -208,6 +214,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.S))
         {
+            transform.GetChild(0).GetComponent<Animation>().Play("pushDown");
+            pushes++;
+
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1].tag.Equals("Block"))
             {
@@ -233,7 +242,6 @@ public class PlayerMovement : MonoBehaviour {
                 int hingeGridX = GameUtility.gameToGridCoord(hingePos.x);
                 if (hingeGridX != currGridX)
                 {
-                    pushes++;
                     lastPushedBlock.moving = true;
                     lastPushedBlock.oldRotation = lastPushedBlock.transform.eulerAngles.z;
                   
