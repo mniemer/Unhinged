@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    public const float movementSpeed = 4.5f;
+    public const float movementSpeed = 6f;
     public bool moving;
     public bool updateGrid;
     public short direction; //0 for left, 1 for up, 2 for right, 3 for down
@@ -335,15 +335,11 @@ public class PlayerMovement : MonoBehaviour {
             transform.parent.GetComponent<GridController>().updateGrid();
             updateGrid = false;
 	    }
-         if(GameUtility.gameToGridCoord(transform.position.x)==endX)
+
+        if(GameUtility.gameToGridCoord(transform.position.x) == endX)
         {
             gameOver = true;
-           
         }
-        //if (transform.position.x>(10*blockSize))
-        //{
-        //  gameOver = true;
-        //}
     }
 
     
