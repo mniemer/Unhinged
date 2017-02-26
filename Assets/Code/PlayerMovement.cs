@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         int currGridX = GameUtility.gameToGridCoord(transform.position.x);
         int currGridY = GameUtility.gameToGridCoord(transform.position.y);
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             if (currGridX >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null)
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
             direction = 2;
             goalX = GameUtility.gridToGameCoord(currGridX + 1);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             if (currGridX <= 0 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour {
             direction = 0;
             goalX = GameUtility.gridToGameCoord(currGridX - 1);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKey(KeyCode.UpArrow))
         {
             if (currGridY >= 19 ||
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null)
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour {
             direction = 1;
             goalY = GameUtility.gridToGameCoord(currGridY + 1);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKey(KeyCode.DownArrow))
         {
             if (currGridY <= 0 ||
                transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null)
