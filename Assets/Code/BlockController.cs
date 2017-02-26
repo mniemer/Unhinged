@@ -11,6 +11,7 @@ public class BlockController : MonoBehaviour
     public short rotationDirection = 1; // counter clockwise == -1, clockwise == 1;
     private float rotationSpeed = 3f;
     public Transform[,] originalGrid;
+
     // Use this for initialization
     void Start()
     {
@@ -19,20 +20,8 @@ public class BlockController : MonoBehaviour
         oldRotation = transform.eulerAngles.z;
     }
 
-     void  getHingePos(GameObject[] test)
-    {
-        
-       test=GameObject.FindGameObjectsWithTag("Hinge");
-        }
-
     void Update()
     {
-        GameObject[] HingeLoc= GameObject.FindGameObjectsWithTag("Hinge");
-        getHingePos(HingeLoc);
-        for(int i =0; i<HingeLoc.Length;i++)
-        {
-            HingeLoc[i].transform.position = originalHinge[i].transform.position;
-        }
         float currRotation = transform.eulerAngles.z;
         if (moving)
         {
