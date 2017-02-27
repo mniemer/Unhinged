@@ -26,12 +26,12 @@ public class BlockController : MonoBehaviour
         if (moving)
         {
 
-            Debug.Log("curr rot: " + currRotation.ToString());
-            Debug.Log("old rot: " + oldRotation.ToString());
+            //Debug.Log("curr rot: " + currRotation.ToString());
+            //Debug.Log("old rot: " + oldRotation.ToString());
         }
         if (moving && Math.Abs(currRotation - oldRotation) >= 85 && Math.Abs(currRotation - oldRotation) <=275)
         {
-            Debug.Log("The block has moved.");
+            //Debug.Log("The block has moved.");
             if (currRotation <= 5 || (currRotation >= 355 && currRotation <= 361))
                 currRotation = 0;
             else if (currRotation >= 85 && currRotation <= 95)
@@ -85,20 +85,14 @@ public class BlockController : MonoBehaviour
     }
     private bool inOriginalBlock(int gridXCoord, int gridYCoord)
     {
-
-        //Debug.Log("GRIDX : " + gridXCoord.ToString());
-        //Debug.Log("GRIDY: " + gridYCoord.ToString());
+        
         foreach (SquareController child in GetComponentsInChildren<SquareController>())
         {
-         //   Debug.Log("Original x: " + child.lastXCoord);
-          //  Debug.Log("oriignal y: " + child.lastYCoord);
             if ((child.lastXCoord == gridXCoord) && (gridYCoord == child.lastYCoord))
             {
-               // Debug.Log("TRUEEEE");
                 return true;
             }
         }
-        Debug.Log("FALSEEE");
         return false;
     }
     internal void snapToRotation(float desiredRotation)
