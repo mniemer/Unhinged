@@ -60,9 +60,10 @@ public class GridController : MonoBehaviour {
                 child.tag.Equals("WallTop") || 
                 child.tag.Equals("WallBottom") || 
                 child.tag.Equals("WallRight") || 
-                child.tag.Equals("WallLeft"))
+                child.tag.Equals("WallLeft") ||
+                child.tag.Equals("PushableBlock")
+                )
             {
-                
                 foreach (Transform blockChild in child.transform)
                 {
                     
