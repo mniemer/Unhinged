@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
     public const float movementSpeed = 6f;
@@ -402,6 +403,11 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         bool blockWait = false;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            string currentScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentScene);
+        }
         if (lastPushedBlock != null)
         {
             if (lastPushedBlock.moving)
