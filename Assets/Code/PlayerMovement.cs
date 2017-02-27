@@ -98,6 +98,7 @@ public class PlayerMovement : MonoBehaviour {
                 PushableBlock blk = gM[currGridX + 1, currGridY].GetComponent<PushableBlock>();
                 blk.moving = true;
                 blk.goalX = GameUtility.gridToGameCoord(currGridX + 2);
+                blk.direction = 2;
             }
         }
         if (Input.GetKeyDown(KeyCode.A))
@@ -112,6 +113,7 @@ public class PlayerMovement : MonoBehaviour {
                 PushableBlock blk = gM[currGridX - 1, currGridY].GetComponent<PushableBlock>();
                 blk.moving = true;
                 blk.goalX = GameUtility.gridToGameCoord(currGridX - 2);
+                blk.direction = 0;
             }
         }
         if (Input.GetKeyDown(KeyCode.W))
@@ -119,27 +121,29 @@ public class PlayerMovement : MonoBehaviour {
             transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
             if (gM[currGridX, currGridY + 1] != null &&
                 gM[currGridX, currGridY + 1].tag.Equals("PushableBlock")
-                 && !gM[currGridX + 1, currGridY].GetComponent<PushableBlock>().moving
+                 && !gM[currGridX, currGridY + 1].GetComponent<PushableBlock>().moving
                 )
             {
                 ++pushes;
                 PushableBlock blk = gM[currGridX, currGridY + 1].GetComponent<PushableBlock>();
                 blk.moving = true;
                 blk.goalY = GameUtility.gridToGameCoord(currGridY + 2);
+                blk.direction = 1;
             }
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
-            if (gM[currGridX, currGridY + 1] != null &&
-                gM[currGridX, currGridY + 1].tag.Equals("PushableBlock")
-                 && !gM[currGridX + 1, currGridY].GetComponent<PushableBlock>().moving
+            if (gM[currGridX, currGridY - 1] != null &&
+                gM[currGridX, currGridY - 1].tag.Equals("PushableBlock")
+                 && !gM[currGridX, currGridY - 1].GetComponent<PushableBlock>().moving
                 )
             {
                 ++pushes;
-                PushableBlock blk = gM[currGridX, currGridY + 1].GetComponent<PushableBlock>();
+                PushableBlock blk = gM[currGridX, currGridY - 1].GetComponent<PushableBlock>();
                 blk.moving = true;
-                blk.goalY = GameUtility.gridToGameCoord(currGridY + 2);
+                blk.goalY = GameUtility.gridToGameCoord(currGridY - 2);
+                blk.direction = 3;
             }
         }
     }
