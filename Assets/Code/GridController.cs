@@ -119,13 +119,16 @@ public class GridController : MonoBehaviour {
         if (destructions.Count > 0)
         {
             Debug.Log("CLEAR");
+            // Code for deleting squares and hinges
             foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square")){
                 int squareYCoord = GameUtility.gameToGridCoord(square.transform.position.y);
                 foreach (int j in destructions)
                 {
                     if (j == squareYCoord)
                     {
+                        BlockController parent = square.GetComponentInParent<BlockController>();
                         Destroy(square);
+
                     }
                 }
             }
@@ -136,10 +139,33 @@ public class GridController : MonoBehaviour {
                 {
                     if (j == hingeYCoord)
                     {
+                        // If we have other children besides the hinge, turn their parent into a PushableBlock
+                        GameObject newParent = new GameObject();
+                        newParent.AddComponent<PushableBlock>();
+                        newParent.transform.SetParent(transform, true);
+                        newParent.transform.position = hinge.transform.parent.transform.position;
+                        if (hinge.transform.parent.childCount > 1)
+                        {
+                            SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
+                            // basically make all of the squares part of a pushable block.
+                            Destroy(hinge.transform.parent.gameObject);
+                            foreach (SquareController square in leftoverSquares)
+                            {
+                                if(square.tag == "Hinge")
+                                {
+                                    continue;
+                                }
+                                square.transform.SetParent(newParent.transform, true);
+                            }
+                        }
                         Destroy(hinge);
                     }
                 }
             }
+            
+
+
+
         }
         
     }

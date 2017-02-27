@@ -25,13 +25,10 @@ public class BlockController : MonoBehaviour
         float currRotation = transform.eulerAngles.z;
         if (moving)
         {
-
-            //Debug.Log("curr rot: " + currRotation.ToString());
-            //Debug.Log("old rot: " + oldRotation.ToString());
+           
         }
         if (moving && Math.Abs(currRotation - oldRotation) >= 85 && Math.Abs(currRotation - oldRotation) <=275)
         {
-            //Debug.Log("The block has moved.");
             if (currRotation <= 5 || (currRotation >= 355 && currRotation <= 361))
                 currRotation = 0;
             else if (currRotation >= 85 && currRotation <= 95)
