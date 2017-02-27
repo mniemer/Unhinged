@@ -6,7 +6,7 @@ public class PushableBlock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        transform.tag = "PushableBlock";
     }
 	
 	// Update is called once per frame

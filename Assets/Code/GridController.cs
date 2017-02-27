@@ -120,7 +120,8 @@ public class GridController : MonoBehaviour {
         {
             Debug.Log("CLEAR");
             // Code for deleting squares and hinges
-            foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square")){
+            foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square"))
+            {
                 int squareYCoord = GameUtility.gameToGridCoord(square.transform.position.y);
                 foreach (int j in destructions)
                 {
@@ -140,18 +141,19 @@ public class GridController : MonoBehaviour {
                     if (j == hingeYCoord)
                     {
                         // If we have other children besides the hinge, turn their parent into a PushableBlock
+
                         GameObject newParent = new GameObject();
-                        newParent.AddComponent<PushableBlock>();
-                        newParent.transform.SetParent(transform, true);
-                        newParent.transform.position = hinge.transform.parent.transform.position;
                         if (hinge.transform.parent.childCount > 1)
                         {
+                            newParent.AddComponent<PushableBlock>();
+                            newParent.transform.SetParent(transform, true);
+                            newParent.transform.position = hinge.transform.parent.transform.position;
                             SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
                             // basically make all of the squares part of a pushable block.
                             Destroy(hinge.transform.parent.gameObject);
                             foreach (SquareController square in leftoverSquares)
                             {
-                                if(square.tag == "Hinge")
+                                if (square.tag == "Hinge")
                                 {
                                     continue;
                                 }
@@ -162,19 +164,32 @@ public class GridController : MonoBehaviour {
                     }
                 }
             }
+        }
+    }
             
 
 
 
-        }
         
-    }
+        
+    
 
     void OnGUI()
     {
         if (gameOver)
         {
             GUI.Label(new Rect(1000, 450, 1000, 500), "You Win!");
+        }
+    }
+
+    void deleteEmptyParents()
+    {
+        foreach (Transform t in transform.GetComponentsInChildren<Transform>())
+        {
+            if (t.childCount == 0 && t.tag == "PushableBlock")
+            {
+                Destroy(t.gameObject);
+            }
         }
     }
 
@@ -187,6 +202,7 @@ public class GridController : MonoBehaviour {
             Debug.Log(arenaLength);
             clearTest = true;
         }
+        deleteEmptyParents();
         
 	}
 }
