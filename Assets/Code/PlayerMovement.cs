@@ -88,13 +88,14 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.D))
         {
             transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
-            pushes++;
+            
 
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].tag.Equals("Block")
                  && !transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY].GetComponent<BlockController>().moving
                 )
             {
+                pushes++;
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX + 1, currGridY]
                     .GetComponent<BlockController>();
                 SquareController[] children = lastPushedBlock.GetComponentsInChildren<SquareController>();
@@ -132,13 +133,14 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.A))
         {
             transform.GetChild(0).GetComponent<Animation>().Play("pushLeft");
-            pushes++;
+           
 
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY].tag.Equals("Block")
                  && !transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY].GetComponent<BlockController>().moving
                 )
             {
+                pushes++;
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX - 1, currGridY]
                     .GetComponent<BlockController>();
                 SquareController[] children = lastPushedBlock.GetComponentsInChildren<SquareController>();
@@ -176,13 +178,14 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.W))
         {
             transform.GetChild(0).GetComponent<Animation>().Play("pushUp");
-            pushes++;
+      
 
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1].tag.Equals("Block")
                 && !transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1].GetComponent<BlockController>().moving
                 )
             {
+                pushes++;
 
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY + 1]
                     .GetComponent<BlockController>();
@@ -221,13 +224,14 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.S))
         {
             transform.GetChild(0).GetComponent<Animation>().Play("pushDown");
-            pushes++;
+           
 
             if (transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1] != null &&
                 transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1].tag.Equals("Block")
                  && !transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1].GetComponent<BlockController>().moving
                  )
             {
+                pushes++;
 
                 lastPushedBlock = transform.parent.GetComponent<GridController>().gridMatrix[currGridX, currGridY - 1]
                     .GetComponent<BlockController>();
