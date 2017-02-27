@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
+            transform.GetChild(0).GetComponent<Animation>().Play("pushLeft");
             if (gM[currGridX - 1, currGridY] != null &&
                 gM[currGridX - 1, currGridY].tag.Equals("PushableBlock")
                  && !gM[currGridX - 1, currGridY].GetComponent<PushableBlock>().moving
@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
+            transform.GetChild(0).GetComponent<Animation>().Play("pushUp");
             if (gM[currGridX, currGridY + 1] != null &&
                 gM[currGridX, currGridY + 1].tag.Equals("PushableBlock")
                  && !gM[currGridX, currGridY + 1].GetComponent<PushableBlock>().moving
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
+            transform.GetChild(0).GetComponent<Animation>().Play("pushDown");
             if (gM[currGridX, currGridY - 1] != null &&
                 gM[currGridX, currGridY - 1].tag.Equals("PushableBlock")
                  && !gM[currGridX, currGridY - 1].GetComponent<PushableBlock>().moving

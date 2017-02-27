@@ -79,6 +79,7 @@
     <Compile Include="Assets\Code\GameUtility.cs" />
     <Compile Include="Assets\Code\GridController.cs" />
     <Compile Include="Assets\Code\PlayerMovement.cs" />
+    <Compile Include="Assets\Code\PushableBlock.cs" />
     <Compile Include="Assets\Code\SquareController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
