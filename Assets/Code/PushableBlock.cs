@@ -19,7 +19,12 @@ public class PushableBlock : MonoBehaviour {
 
     void moveBlock()
     {
-        if(direction == 0)
+        Debug.Log("direction: " + direction);
+        Debug.Log("goalY: " + goalY);
+        Debug.Log("goalX: " + goalX);
+        Debug.Log("transform.position.y: " + transform.position.y);
+        Debug.Log("transform.position.x: " + transform.position.x);
+        if (direction == 0)
         {
             if (transform.position.x <= goalX)
             {
