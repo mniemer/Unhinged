@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 public static class GameUtility
 {
@@ -14,5 +15,19 @@ public static class GameUtility
     {
         return (coord - 9.5f);
     }
+
+    public static bool areBlocksAllStill()
+    {
+        foreach (BlockController blk in GameObject.FindObjectsOfType<BlockController>())
+        {
+            if (blk.moving)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
 
