@@ -433,6 +433,16 @@ public class PlayerMovement : MonoBehaviour {
         if(GameUtility.gameToGridCoord(transform.position.x) == endX)
         {
             gameOver = true;
+            int secs = 5;
+            //IEnumerator whatever =WaitForSecondsRealtime(secs);
+            string currentScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentScene);
+            if (string.Equals(currentScene,"Level0"))
+            {
+                
+                SceneManager.LoadScene("Level1");
+            }
+
         }
     }
 
