@@ -7,8 +7,6 @@ using UnityEngine;
 public class GridController : MonoBehaviour {
 
     public Transform[,] gridMatrix = new Transform[20,20];
-    private bool gameOver;
-    private bool clearTest = false;
     public int arenaLength;
     public int arenaHeight;
     public int gridBottomPos;
@@ -19,8 +17,6 @@ public class GridController : MonoBehaviour {
 	void Start ()
     {
 	    updateGrid();
-        float startPos = GameObject.FindGameObjectWithTag("Player").transform.position.x;
-        int playerStartPos = GameUtility.gameToGridCoord(startPos);
         float rightPos = GameObject.FindGameObjectWithTag("WallRight").transform.position.x;
         gridRightPos = GameUtility.gameToGridCoord(rightPos);
         float leftPos = GameObject.FindGameObjectWithTag("WallLeft").transform.position.x;
@@ -31,8 +27,7 @@ public class GridController : MonoBehaviour {
         gridTopPos = GameUtility.gameToGridCoord(topPos);
         float bottomPos = GameObject.FindGameObjectWithTag("WallBottom").transform.position.y;
         gridBottomPos = GameUtility.gameToGridCoord(bottomPos);
-        arenaHeight = gridTopPos - gridBottomPos;
-       
+        arenaHeight = gridTopPos - gridBottomPos;  
     }
 
     internal void updateGrid()
@@ -128,7 +123,7 @@ public class GridController : MonoBehaviour {
                 {
                     if (j == squareYCoord)
                     {
-                        BlockController parent = square.GetComponentInParent<BlockController>();
+                        //BlockController parent = square.GetComponentInParent<BlockController>();
                         Destroy(square);
 
                     }
@@ -141,45 +136,23 @@ public class GridController : MonoBehaviour {
                 {
                     if (j == hingeYCoord)
                     {
-                        // If we have other children besides the hinge, turn their parent into a PushableBlock
-
-                        GameObject newParent = new GameObject();
-                        if (hinge.transform.parent.childCount > 1)
-                        {
-                            newParent.AddComponent<PushableBlock>();
-                            newParent.transform.SetParent(transform, true);
-                            newParent.transform.position = hinge.transform.parent.transform.position;
-                            SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
-                            // basically make all of the squares part of a pushable block.
-                            Destroy(hinge.transform.parent.gameObject);
-                            foreach (SquareController square in leftoverSquares)
-                            {
-                                if (square.tag == "Hinge")
-                                {
-                                    continue;
-                                }
-                                square.transform.SetParent(newParent.transform, true);
-                            }
-                        }
+                        // If we have other children besides the hinge, turn their parent into a Wall
+                        SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
+                        Destroy(hinge.transform.parent.gameObject);
                         Destroy(hinge);
+                        foreach (var leftoverSquare in leftoverSquares)
+                        {
+                            GameObject newParent = new GameObject();
+                            newParent.transform.tag = "Wall";
+                            newParent.transform.SetParent(transform, true);
+                            newParent.transform.position = leftoverSquare.gameObject.transform.position;
+                            leftoverSquare.gameObject.transform.SetParent(newParent.transform, true);
+                            //leftoverSquare.gameObject.transform.GetComponent<Animation>().Play("fadeOut");
+                            leftoverSquare.gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1);
+                        }
                     }
                 }
             }
-        }
-    }
-            
-
-
-
-        
-        
-    
-
-    void OnGUI()
-    {
-        if (gameOver)
-        {
-            GUI.Label(new Rect(1000, 450, 1000, 500), "You Win!");
         }
     }
 
@@ -187,7 +160,7 @@ public class GridController : MonoBehaviour {
     {
         foreach (Transform t in transform.GetComponentsInChildren<Transform>())
         {
-            if (t.childCount == 0 && t.tag == "PushableBlock")
+            if (t.childCount == 0 && t.tag == "Wall")
             {
                 Destroy(t.gameObject);
             }
@@ -201,11 +174,6 @@ public class GridController : MonoBehaviour {
             clearRow();
         }
         updateGrid();
-        if (!clearTest)
-        {
-            Debug.Log(arenaLength);
-            clearTest = true;
-        }
         deleteEmptyParents();
         
 	}
