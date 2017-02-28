@@ -196,7 +196,10 @@ public class GridController : MonoBehaviour {
 
     // Update is called once per frame
     internal void Update () {
-        clearRow();
+        if (GameUtility.areBlocksAllStill())
+        {
+            clearRow();
+        }
         updateGrid();
         if (!clearTest)
         {
