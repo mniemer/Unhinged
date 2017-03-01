@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GameUtility
 {
@@ -26,6 +27,15 @@ public static class GameUtility
             }
         }
         return true;
+    }
+
+    public static void loadNextLevel(string level)
+    {
+        string num = level.Substring(5);
+        int i = Int32.Parse(num);
+        string next = (i + 1).ToString();
+        string nextLevel = "Level" + next;
+        SceneManager.LoadScene(nextLevel);
     }
 
 
