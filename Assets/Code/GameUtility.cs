@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public static class GameUtility
 {
+    public static int numLevels = 13;
+
     public static int gameToGridCoord(float coord)
     {
         return Convert.ToInt32(coord + 9.5f);
@@ -33,9 +35,13 @@ public static class GameUtility
     {
         string num = level.Substring(5);
         int i = Int32.Parse(num);
-        string next = (i + 1).ToString();
-        string nextLevel = "Level" + next;
-        SceneManager.LoadScene(nextLevel);
+        Debug.Log(i);
+        if (i+1 < numLevels)
+        {
+            string next = (i + 1).ToString();
+            string nextLevel = "Level" + next;
+            SceneManager.LoadScene(nextLevel);
+        }
     }
 
 
