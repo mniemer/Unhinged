@@ -31,11 +31,11 @@ public static class GameUtility
         return true;
     }
 
-    public static void loadNextLevel(string level)
+    public static void loadNextLevel()
     {
-        string num = level.Substring(5);
+        string currentScene = SceneManager.GetActiveScene().name;
+        string num = currentScene.Substring(5);
         int i = Int32.Parse(num);
-        Debug.Log(i);
         if (i+1 < numLevels)
         {
             string next = (i + 1).ToString();
@@ -44,6 +44,34 @@ public static class GameUtility
         }
     }
 
+    public static void loadPreviousLevel()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        string num = currentScene.Substring(5);
+        int i = Int32.Parse(num);
+        if (i > 0)
+        {
+            string next = (i - 1).ToString();
+            string nextLevel = "Level" + next;
+            SceneManager.LoadScene(nextLevel);
+        }
+    }
+
+    public static void reloadCurrentLevel()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
+    }
+
+    public static void HandleSceneInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            reloadCurrentLevel();
+        else if (Input.GetKeyDown(KeyCode.N))
+            loadNextLevel();
+        else if (Input.GetKeyDown(KeyCode.P))
+            loadPreviousLevel();
+    }
 
 }
 

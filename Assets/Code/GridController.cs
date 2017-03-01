@@ -7,8 +7,6 @@ using UnityEngine;
 public class GridController : MonoBehaviour {
 
     public Transform[,] gridMatrix = new Transform[20,20];
-    private bool gameOver;
-    private bool clearTest = false;
     public int arenaLength;
     public int arenaHeight;
     public int gridBottomPos;
@@ -167,21 +165,6 @@ public class GridController : MonoBehaviour {
             }
         }
     }
-            
-
-
-
-        
-        
-    
-
-    void OnGUI()
-    {
-        if (gameOver)
-        {
-            GUI.Label(new Rect(1000, 450, 1000, 500), "You Win!");
-        }
-    }
 
     void deleteEmptyParents()
     {
@@ -198,11 +181,6 @@ public class GridController : MonoBehaviour {
     internal void Update () {
         clearRow();
         updateGrid();
-        if (!clearTest)
-        {
-            Debug.Log(arenaLength);
-            clearTest = true;
-        }
         deleteEmptyParents();
         
 	}

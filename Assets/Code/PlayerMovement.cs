@@ -402,12 +402,10 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        GameUtility.HandleSceneInput();
+
         bool blockWait = false;
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            string currentScene = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(currentScene);
-        }
         if (lastPushedBlock != null)
         {
             if (lastPushedBlock.moving)
@@ -415,9 +413,10 @@ public class PlayerMovement : MonoBehaviour {
                 blockWait = true;
             }
         }
+
         if (moving && !blockWait)
 	        movePlayer();
-	    else
+	    else if (!blockWait)
 	    {
 	        handleArrowKeyInput();
             WASDRotateBlockHandling();
@@ -433,9 +432,8 @@ public class PlayerMovement : MonoBehaviour {
         if(GameUtility.gameToGridCoord(transform.position.x) == endX)
         {
             gameOver = true;
-            int secs = 5;
             string currentScene = SceneManager.GetActiveScene().name;
-            GameUtility.loadNextLevel(currentScene);
+            GameUtility.loadNextLevel();
         }
     }
 
