@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public static class GameUtility
 {
-    public static int numLevels = 13;
+    public static int numLevels = 14;
 
     public static int gameToGridCoord(float coord)
     {
@@ -19,6 +19,7 @@ public static class GameUtility
         return (coord - 9.5f);
     }
 
+    /*
     public static bool areBlocksAllStill()
     {
         foreach (BlockController blk in GameObject.FindObjectsOfType<BlockController>())
@@ -30,6 +31,7 @@ public static class GameUtility
         }
         return true;
     }
+    */
 
     public static void loadNextLevel()
     {
