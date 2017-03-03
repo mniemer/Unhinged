@@ -17,8 +17,6 @@ public class GridController : MonoBehaviour {
 	void Start ()
     {
 	    updateGrid();
-        float startPos = GameObject.FindGameObjectWithTag("Player").transform.position.x;
-        int playerStartPos = GameUtility.gameToGridCoord(startPos);
         float rightPos = GameObject.FindGameObjectWithTag("WallRight").transform.position.x;
         gridRightPos = GameUtility.gameToGridCoord(rightPos);
         float leftPos = GameObject.FindGameObjectWithTag("WallLeft").transform.position.x;
@@ -29,8 +27,7 @@ public class GridController : MonoBehaviour {
         gridTopPos = GameUtility.gameToGridCoord(topPos);
         float bottomPos = GameObject.FindGameObjectWithTag("WallBottom").transform.position.y;
         gridBottomPos = GameUtility.gameToGridCoord(bottomPos);
-        arenaHeight = gridTopPos - gridBottomPos;
-       
+        arenaHeight = gridTopPos - gridBottomPos;  
     }
 
     internal void updateGrid()

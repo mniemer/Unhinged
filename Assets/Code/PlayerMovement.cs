@@ -82,73 +82,6 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    internal void WASDPushBlockHandling()
-    {
-        int currGridX = GameUtility.gameToGridCoord(transform.position.x);
-        int currGridY = GameUtility.gameToGridCoord(transform.position.y);
-        Transform[,] gM = transform.parent.GetComponent<GridController>().gridMatrix;
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushRight");
-            if (gM[currGridX + 1, currGridY] != null &&
-                gM[currGridX + 1, currGridY].tag.Equals("PushableBlock")
-                 && !gM[currGridX + 1, currGridY].GetComponent<PushableBlock>().moving
-                )
-            {
-                ++pushes;
-                PushableBlock blk = gM[currGridX + 1, currGridY].GetComponent<PushableBlock>();
-                blk.moving = true;
-                blk.goalX = GameUtility.gridToGameCoord(currGridX + 2);
-                blk.direction = 2;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushLeft");
-            if (gM[currGridX - 1, currGridY] != null &&
-                gM[currGridX - 1, currGridY].tag.Equals("PushableBlock")
-                 && !gM[currGridX - 1, currGridY].GetComponent<PushableBlock>().moving
-                )
-            {
-                ++pushes;
-                PushableBlock blk = gM[currGridX - 1, currGridY].GetComponent<PushableBlock>();
-                blk.moving = true;
-                blk.goalX = GameUtility.gridToGameCoord(currGridX - 2);
-                blk.direction = 0;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushUp");
-            if (gM[currGridX, currGridY + 1] != null &&
-                gM[currGridX, currGridY + 1].tag.Equals("PushableBlock")
-                 && !gM[currGridX, currGridY + 1].GetComponent<PushableBlock>().moving
-                )
-            {
-                ++pushes;
-                PushableBlock blk = gM[currGridX, currGridY + 1].GetComponent<PushableBlock>();
-                blk.moving = true;
-                blk.goalY = GameUtility.gridToGameCoord(currGridY + 2);
-                blk.direction = 1;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            transform.GetChild(0).GetComponent<Animation>().Play("pushDown");
-            if (gM[currGridX, currGridY - 1] != null &&
-                gM[currGridX, currGridY - 1].tag.Equals("PushableBlock")
-                 && !gM[currGridX, currGridY - 1].GetComponent<PushableBlock>().moving
-                )
-            {
-                ++pushes;
-                PushableBlock blk = gM[currGridX, currGridY - 1].GetComponent<PushableBlock>();
-                blk.moving = true;
-                blk.goalY = GameUtility.gridToGameCoord(currGridY - 2);
-                blk.direction = 3;
-            }
-        }
-    }
-
     internal void WASDRotateBlockHandling()
     {
         int currGridX = GameUtility.gameToGridCoord(transform.position.x);
@@ -420,7 +353,6 @@ public class PlayerMovement : MonoBehaviour {
 	    {
 	        handleArrowKeyInput();
             WASDRotateBlockHandling();
-            WASDPushBlockHandling();
         }
         
 	    if (updateGrid)
