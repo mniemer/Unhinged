@@ -126,7 +126,7 @@ public class GridController : MonoBehaviour {
                 {
                     if (j == squareYCoord)
                     {
-                        BlockController parent = square.GetComponentInParent<BlockController>();
+                        //BlockController parent = square.GetComponentInParent<BlockController>();
                         Destroy(square);
 
                     }
@@ -140,14 +140,27 @@ public class GridController : MonoBehaviour {
                     if (j == hingeYCoord)
                     {
                         // If we have other children besides the hinge, turn their parent into a PushableBlock
-
+                        SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
+                        Destroy(hinge.transform.parent.gameObject);
+                        Destroy(hinge);
+                        foreach (var leftoverSquare in leftoverSquares)
+                        {
+                            GameObject newParent = new GameObject();
+                            newParent.transform.tag = "Wall";
+                            newParent.transform.SetParent(transform, true);
+                            newParent.transform.position = leftoverSquare.gameObject.transform.position;
+                            leftoverSquare.gameObject.transform.SetParent(newParent.transform, true);
+                        }
+                        
+                        /*
                         GameObject newParent = new GameObject();
                         if (hinge.transform.parent.childCount > 1)
                         {
-                            newParent.AddComponent<PushableBlock>();
-                            newParent.transform.SetParent(transform, true);
-                            newParent.transform.position = hinge.transform.parent.transform.position;
                             SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
+                            newParent.transform.tag = "Wall";
+                            newParent.transform.SetParent(transform, true);
+                            newParent.transform.position = hinge.transform.parent.GetChild(0).position;
+                            
                             // basically make all of the squares part of a pushable block.
                             Destroy(hinge.transform.parent.gameObject);
                             foreach (SquareController square in leftoverSquares)
@@ -160,6 +173,7 @@ public class GridController : MonoBehaviour {
                             }
                         }
                         Destroy(hinge);
+                        */
                     }
                 }
             }
@@ -170,7 +184,7 @@ public class GridController : MonoBehaviour {
     {
         foreach (Transform t in transform.GetComponentsInChildren<Transform>())
         {
-            if (t.childCount == 0 && t.tag == "PushableBlock")
+            if (t.childCount == 0 && t.tag == "Wall")
             {
                 Destroy(t.gameObject);
             }
