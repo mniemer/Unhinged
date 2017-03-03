@@ -139,7 +139,7 @@ public class GridController : MonoBehaviour {
                 {
                     if (j == hingeYCoord)
                     {
-                        // If we have other children besides the hinge, turn their parent into a PushableBlock
+                        // If we have other children besides the hinge, turn their parent into a Wall
                         SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
                         Destroy(hinge.transform.parent.gameObject);
                         Destroy(hinge);
@@ -150,30 +150,9 @@ public class GridController : MonoBehaviour {
                             newParent.transform.SetParent(transform, true);
                             newParent.transform.position = leftoverSquare.gameObject.transform.position;
                             leftoverSquare.gameObject.transform.SetParent(newParent.transform, true);
+                            //leftoverSquare.gameObject.transform.GetComponent<Animation>().Play("fadeOut");
+                            leftoverSquare.gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1);
                         }
-                        
-                        /*
-                        GameObject newParent = new GameObject();
-                        if (hinge.transform.parent.childCount > 1)
-                        {
-                            SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
-                            newParent.transform.tag = "Wall";
-                            newParent.transform.SetParent(transform, true);
-                            newParent.transform.position = hinge.transform.parent.GetChild(0).position;
-                            
-                            // basically make all of the squares part of a pushable block.
-                            Destroy(hinge.transform.parent.gameObject);
-                            foreach (SquareController square in leftoverSquares)
-                            {
-                                if (square.tag == "Hinge")
-                                {
-                                    continue;
-                                }
-                                square.transform.SetParent(newParent.transform, true);
-                            }
-                        }
-                        Destroy(hinge);
-                        */
                     }
                 }
             }

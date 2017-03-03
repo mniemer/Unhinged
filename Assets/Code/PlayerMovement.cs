@@ -432,7 +432,6 @@ public class PlayerMovement : MonoBehaviour {
         if(GameUtility.gameToGridCoord(transform.position.x) == endX)
         {
             gameOver = true;
-            string currentScene = SceneManager.GetActiveScene().name;
             GameUtility.loadNextLevel();
         }
     }
