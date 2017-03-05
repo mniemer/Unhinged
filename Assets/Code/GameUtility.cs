@@ -19,7 +19,6 @@ public static class GameUtility
         return (coord - 9.5f);
     }
 
-    /*
     public static bool areBlocksAllStill()
     {
         foreach (BlockController blk in GameObject.FindObjectsOfType<BlockController>())
@@ -31,7 +30,7 @@ public static class GameUtility
         }
         return true;
     }
-    */
+    
 
     public static void loadNextLevel()
     {

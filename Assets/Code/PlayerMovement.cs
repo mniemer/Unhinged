@@ -320,6 +320,15 @@ public class PlayerMovement : MonoBehaviour {
         transform.position = new Vector3(desiredX, desiredY);
     }
 
+    bool isGameOver()
+    {
+        int playerX = GameUtility.gameToGridCoord(transform.position.x);
+        int playerY = GameUtility.gameToGridCoord(transform.position.y);
+        int finishedX = GameUtility.gameToGridCoord(GameObject.FindGameObjectsWithTag("Goal")[0].transform.position.x);
+        int finishedY = GameUtility.gameToGridCoord(GameObject.FindGameObjectsWithTag("Goal")[0].transform.position.y);
+        return (playerX == finishedX && playerY == finishedY);
+    }
+
     void OnGUI()
     {
         GUI.color = Color.red;
@@ -361,8 +370,9 @@ public class PlayerMovement : MonoBehaviour {
             updateGrid = false;
 	    }
 
-        if(GameUtility.gameToGridCoord(transform.position.x) == endX)
+        if(isGameOver())
         {
+            Debug.Log("WINNER");
             gameOver = true;
             GameUtility.loadNextLevel();
         }
