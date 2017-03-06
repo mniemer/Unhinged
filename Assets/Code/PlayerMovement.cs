@@ -375,7 +375,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             string endGameString = "You Win!\nYour score was: " + calculateScore() + "\nPar was: " +
                                    GameUtility.getLevelPar();
-           GUI.Label(new Rect(600, 200, 500, 250), endGameString, endGame);
+           GUI.Label(new Rect(500, 200, 500, 250), endGameString, endGame);
         }
     }
 
