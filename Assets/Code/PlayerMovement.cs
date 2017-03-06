@@ -355,6 +355,7 @@ public class PlayerMovement : MonoBehaviour {
             
             GUI.Label(new Rect(400, 10, 1000, 500), "You Win!");
             GUI.Label(new Rect(100, 100, 5000, 5000), "Your score was: " + calculateScore().ToString(), endGame);
+            GUI.Label(new Rect(100, 150, 5000, 5000), "Par is: " + GameUtility.getLevelPar().ToString(), endGame);
         }
     }
 
