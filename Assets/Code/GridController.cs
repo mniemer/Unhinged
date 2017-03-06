@@ -117,6 +117,15 @@ public class GridController : MonoBehaviour {
 
     }
 
+    internal void allTheWayBlack()
+    {
+        foreach(GameObject newWall in newWalls)
+        {
+            SpriteRenderer sr = newWall.transform.GetComponent<SpriteRenderer>();
+            sr.color = new Vector4(0, 0, 0, 1f);
+        }
+    }
+
     internal void clearRow()
     {
 
@@ -225,6 +234,7 @@ public class GridController : MonoBehaviour {
             if (fades.Count > 0)
             {
                 clearFades();
+                allTheWayBlack();
             }
             if (GameUtility.areBlocksAllStill())
             {
