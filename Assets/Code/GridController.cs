@@ -99,7 +99,6 @@ public class GridController : MonoBehaviour {
         {
             SpriteRenderer sr = fade.transform.GetComponent<SpriteRenderer>();
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a - percentage);
-               
         } 
 
 
@@ -148,7 +147,7 @@ public class GridController : MonoBehaviour {
                 }
             }
             startTime = Time.time;
-            goalTime = startTime + 2f;
+            goalTime = startTime + 1.5f;
             foreach (GameObject hinge in GameObject.FindGameObjectsWithTag("Hinge"))
             {
                 int hingeYCoord = GameUtility.gameToGridCoord(hinge.transform.position.y);
@@ -159,7 +158,8 @@ public class GridController : MonoBehaviour {
                         // If we have other children besides the hinge, turn their parent into a Wall
                         SquareController[] leftoverSquares = hinge.transform.parent.GetComponentsInChildren<SquareController>();
                         Destroy(hinge.transform.parent.gameObject);
-                        Destroy(hinge);
+                        fades.Add(hinge);
+                        //Destroy(hinge);
                         foreach (var leftoverSquare in leftoverSquares)
                         {
                             GameObject newParent = new GameObject();
@@ -167,7 +167,6 @@ public class GridController : MonoBehaviour {
                             newParent.transform.SetParent(transform, true);
                             newParent.transform.position = leftoverSquare.gameObject.transform.position;
                             leftoverSquare.gameObject.transform.SetParent(newParent.transform, true);
-                            //leftoverSquare.gameObject.transform.GetComponent<Animation>().Play("fadeOut");
                             int yCheck = GameUtility.gameToGridCoord(leftoverSquare.transform.position.y);
                             if (!destructions.Contains(yCheck))
                             {
