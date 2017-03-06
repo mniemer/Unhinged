@@ -12,26 +12,26 @@ public static class GameUtility
     public static int[] levelPars =
     {
         0, //  level 0, don't touch
-        1, //  level 1
-        2, //  level 2
-        3, //  level 3
-        4, //  level 4
-        5, //  level 5
-        6, //  level 6
-        7, //  level 7
-        8, //  level 8
-        9, //  level 9
-        10, // level 10
-        11, // level 11
-        12, // level 12
-        13, // level 13
-        14, // level 14
+        9, //  level 1
+        12, //  level 2
+        15, //  level 3
+        14, //  level 4
+        12, //  level 5
+        17, //  level 6
+        13, //  level 7
+        20, //  level 8
+        14, //  level 9
+        17, // level 10
+        17, // level 11
+        19, // level 12
+        17, // level 13
+        11, // level 14
         15, // level 15
-        16, // level 16
-        17, // level 17
-        18, // level 18
-        19, // level 19
-        20 //  level 20
+        25, // level 16
+        50, // level 17
+        18, // level 18 NEED TO FINISH
+        19, // level 19 NEED TO FINISH
+        20 //  level 20 NEED TO FINISH
 
     };
     public static int numLevels = 21;
