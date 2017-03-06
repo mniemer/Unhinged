@@ -224,6 +224,8 @@ public class GridController : MonoBehaviour {
     }
     // Update is called once per frame
     internal void Update () {
+        GameUtility.HandleSceneInput();
+
         if (goalTime > Time.time)
         {
             fadeAndDestroy();

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public static class GameUtility
 {
     public static int numLevels = 21;
+    public static string lastScene;
 
     public static int gameToGridCoord(float coord)
     {
@@ -35,6 +36,8 @@ public static class GameUtility
     public static void loadNextLevel()
     {
         string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Help")
+            return;
         string num = currentScene.Substring(5);
         int i = Int32.Parse(num);
         if (i+1 < numLevels)
@@ -48,6 +51,8 @@ public static class GameUtility
     public static void loadPreviousLevel()
     {
         string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Help")
+            return;
         string num = currentScene.Substring(5);
         int i = Int32.Parse(num);
         if (i > 0)
@@ -72,6 +77,22 @@ public static class GameUtility
             loadNextLevel();
         else if (Input.GetKeyDown(KeyCode.P))
             loadPreviousLevel();
+        else if (Input.GetKeyDown(KeyCode.H))
+            loadHelpScene();
+        else if (Input.GetKeyDown(KeyCode.Escape))
+            exitHelpScene();
+    }
+
+    public static void loadHelpScene()
+    {
+        lastScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("Help");
+    }
+
+    public static void exitHelpScene()
+    {
+        if (SceneManager.GetActiveScene().name == "Help")
+            SceneManager.LoadScene(lastScene);
     }
 
 }
