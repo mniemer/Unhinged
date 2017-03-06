@@ -70,6 +70,8 @@ public class BlockController : MonoBehaviour
                     p.GetComponent<PlayerMovement>().moving = false;
                     transform.parent.GetComponent<GridController>().updateGrid();
                     //p.GetComponent<PlayerMovement>().pushes -= 1;
+                    child.changeColors = true;
+                    child.startTime = Time.time;
                     break;
                 }
             }
