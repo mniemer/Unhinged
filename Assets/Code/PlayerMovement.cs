@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour {
     public float endX;
     public int steps, pushes=0;
     public BlockController lastPushedBlock = null;
+   
+
+
 
 	// Use this for initialization
 
@@ -331,9 +334,13 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnGUI()
     {
-        GUI.color = Color.red;
-        GUI.Label(new Rect(10, 10, 1000, 500), "Steps:"+steps);
-        GUI.Label(new Rect(10, 25, 1000, 500), "Pushes:"+pushes);
+        GUIStyle style= new GUIStyle();
+        style.fontSize = 20;
+        style.normal.textColor = Color.red;
+   
+        
+        GUI.Label(new Rect(10, 10, 10000, 5000), "Steps:"+steps,style);
+        GUI.Label(new Rect(300, 10, 1000, 500), "Pushes:"+pushes,style);
         if (gameOver)
         {
             
