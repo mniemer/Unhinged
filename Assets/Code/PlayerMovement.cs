@@ -336,7 +336,7 @@ public class PlayerMovement : MonoBehaviour {
 
     int calculateScore()
     {
-        return (int)(.25 * steps + 3 * pushes);
+        return (int)(.25 * steps + pushes);
     }
 
     void OnGUI()
