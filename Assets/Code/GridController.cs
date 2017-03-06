@@ -13,6 +13,9 @@ public class GridController : MonoBehaviour {
     public int gridTopPos;
     public int gridLeftPos;
     public int gridRightPos;
+    float startTime = 0.0f;
+    float goalTime =  0.0f;
+    List<GameObject> fades = new List<GameObject>();
 	// Use this for initialization
 	void Start ()
     {
@@ -87,6 +90,20 @@ public class GridController : MonoBehaviour {
         
     }
 
+    internal void fadeAndDestroy()
+    {
+
+        float currTime = Time.time;
+        float percentage = 1.0f - (goalTime - currTime) / (goalTime - startTime);
+        foreach (GameObject fade in fades)
+        {
+            SpriteRenderer sr = fade.transform.GetComponent<SpriteRenderer>();
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a - percentage);
+               
+        } 
+
+
+    }
 
     internal void clearRow()
     {
@@ -116,6 +133,7 @@ public class GridController : MonoBehaviour {
         {
             Debug.Log("CLEAR");
             // Code for deleting squares and hinges
+            
             foreach (GameObject square in GameObject.FindGameObjectsWithTag("Square"))
             {
                 int squareYCoord = GameUtility.gameToGridCoord(square.transform.position.y);
@@ -123,12 +141,14 @@ public class GridController : MonoBehaviour {
                 {
                     if (j == squareYCoord)
                     {
-                        //BlockController parent = square.GetComponentInParent<BlockController>();
-                        Destroy(square);
+                        fades.Add(square);
+                        //Destroy(square);
 
                     }
                 }
             }
+            startTime = Time.time;
+            goalTime = startTime + 2f;
             foreach (GameObject hinge in GameObject.FindGameObjectsWithTag("Hinge"))
             {
                 int hingeYCoord = GameUtility.gameToGridCoord(hinge.transform.position.y);
@@ -148,7 +168,12 @@ public class GridController : MonoBehaviour {
                             newParent.transform.position = leftoverSquare.gameObject.transform.position;
                             leftoverSquare.gameObject.transform.SetParent(newParent.transform, true);
                             //leftoverSquare.gameObject.transform.GetComponent<Animation>().Play("fadeOut");
-                            leftoverSquare.gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1);
+                            int yCheck = GameUtility.gameToGridCoord(leftoverSquare.transform.position.y);
+                            if (!destructions.Contains(yCheck))
+                            {
+                                leftoverSquare.gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1);
+                            }
+                           
                         }
                     }
                 }
@@ -166,15 +191,34 @@ public class GridController : MonoBehaviour {
             }
         }
     }
-
+    internal void clearFades()
+    {
+        foreach (GameObject fade in fades)
+        {
+            Destroy(fade);
+        }
+        fades.Clear();
+    }
     // Update is called once per frame
     internal void Update () {
-        if (GameUtility.areBlocksAllStill())
+        if (goalTime > Time.time)
         {
-            clearRow();
+            fadeAndDestroy();
         }
-        updateGrid();
-        deleteEmptyParents();
+        else
+        {
+            if (fades.Count > 0)
+            {
+                clearFades();
+            }
+            if (GameUtility.areBlocksAllStill())
+            {
+                clearRow();
+            }
+            
+            updateGrid();
+            deleteEmptyParents();
+        }
         
 	}
 }

@@ -372,7 +372,6 @@ public class PlayerMovement : MonoBehaviour {
 
         if(isGameOver())
         {
-            Debug.Log("WINNER");
             gameOver = true;
             GameUtility.loadNextLevel();
         }
