@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour {
     public float endX;
     public int steps, pushes=0;
     public BlockController lastPushedBlock = null;
-   
+    public float transitionTime;
 
 
 
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
         endX = GameUtility.gameToGridCoord(GameObject.FindGameObjectsWithTag("Goal")[0].transform.position.x);
 	    moving = false;
+        gameOver = false;
 	}
 
     internal void handleArrowKeyInput()
@@ -332,12 +334,19 @@ public class PlayerMovement : MonoBehaviour {
         return (playerX == finishedX && playerY == finishedY);
     }
 
+    int calculateScore()
+    {
+        return (int)(.25 * steps + pushes);
+    }
+
     void OnGUI()
     {
         GUIStyle style= new GUIStyle();
         style.fontSize = 20;
         style.normal.textColor = Color.red;
-   
+        GUIStyle endGame = new GUIStyle();
+        endGame.fontSize = 50;
+        endGame.normal.textColor = Color.cyan;
         
         GUI.Label(new Rect(10, 10, 10000, 5000), "Steps:"+steps,style);
         GUI.Label(new Rect(300, 10, 1000, 500), "Pushes:"+pushes,style);
@@ -345,6 +354,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             
             GUI.Label(new Rect(400, 10, 1000, 500), "You Win!");
+            GUI.Label(new Rect(100, 100, 5000, 5000), "Your score was: " + calculateScore().ToString(), endGame);
         }
     }
 
@@ -353,6 +363,22 @@ public class PlayerMovement : MonoBehaviour {
     void Update () {
 
         GameUtility.HandleSceneInput();
+
+        if (gameOver)
+        {
+            if (moving)
+            {
+                movePlayer();
+            }
+            if (Time.time >= transitionTime)
+            {
+                GameUtility.loadNextLevel();
+            }
+            else
+            {
+                return;
+            }
+        }
 
         bool blockWait = false;
         if (lastPushedBlock != null)
@@ -380,7 +406,15 @@ public class PlayerMovement : MonoBehaviour {
         if(isGameOver())
         {
             gameOver = true;
-            GameUtility.loadNextLevel();
+            transitionTime = 1.5f + Time.time;
+            string currentScene = SceneManager.GetActiveScene().name;
+            string num = currentScene.Substring(5);
+            int i = Int32.Parse(num);
+            if (i == 0)
+            {
+
+                GameUtility.loadNextLevel();
+            }
         }
     }
 
