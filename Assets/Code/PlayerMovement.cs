@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     public float endX;
     public int steps, pushes=0;
     public BlockController lastPushedBlock = null;
-   
+    public float transitionTime;
 
 
 
@@ -332,6 +332,11 @@ public class PlayerMovement : MonoBehaviour {
         return (playerX == finishedX && playerY == finishedY);
     }
 
+    int calculateScore()
+    {
+        return (int)(.25 * steps + 3 * pushes);
+    }
+
     void OnGUI()
     {
         GUIStyle style= new GUIStyle();
@@ -345,6 +350,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             
             GUI.Label(new Rect(400, 10, 1000, 500), "You Win!");
+            GUI.Label(new Rect(400, 50, 5000, 5000), "Your score was: " + calculateScore().ToString(), style);
         }
     }
 
@@ -353,6 +359,22 @@ public class PlayerMovement : MonoBehaviour {
     void Update () {
 
         GameUtility.HandleSceneInput();
+
+        if (gameOver)
+        {
+            if (moving)
+            {
+                movePlayer();
+            }
+            if (Time.time >= transitionTime)
+            {
+                GameUtility.loadNextLevel();
+            }
+            else
+            {
+                return;
+            }
+        }
 
         bool blockWait = false;
         if (lastPushedBlock != null)
@@ -380,7 +402,8 @@ public class PlayerMovement : MonoBehaviour {
         if(isGameOver())
         {
             gameOver = true;
-            GameUtility.loadNextLevel();
+            transitionTime = 3f + Time.time;
+            //GameUtility.loadNextLevel();
         }
     }
 
