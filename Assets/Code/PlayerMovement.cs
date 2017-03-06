@@ -347,10 +347,16 @@ public class PlayerMovement : MonoBehaviour {
         GUIStyle endGame = new GUIStyle();
         endGame.fontSize = 50;
         endGame.normal.textColor = Color.cyan;
-        
-        GUI.Label(new Rect(10, 10, 10000, 5000), "Steps:"+steps,style);
-        GUI.Label(new Rect(300, 10, 1000, 500), "Pushes:"+pushes,style);
-        if (gameOver)
+        string currentScene = SceneManager.GetActiveScene().name;
+        string num = currentScene.Substring(5);
+        int i = Int32.Parse(num);
+        if (i != 0)
+        {
+
+            GUI.Label(new Rect(10, 10, 10000, 5000), "Steps:" + steps, style);
+            GUI.Label(new Rect(300, 10, 1000, 500), "Pushes:" + pushes, style);
+        }
+        if (gameOver&&i!=0)
         {
             
             GUI.Label(new Rect(400, 10, 1000, 500), "You Win!");
