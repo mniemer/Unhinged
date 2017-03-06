@@ -34,7 +34,7 @@ public static class GameUtility
         20 //  level 20 NEED TO FINISH
 
     };
-    public static int numLevels = 21;
+    public static int numLevels = 22;
     public static string lastScene;
 
     public static int gameToGridCoord(float coord)

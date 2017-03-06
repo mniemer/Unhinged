@@ -364,14 +364,14 @@ public class PlayerMovement : MonoBehaviour {
         string currentScene = SceneManager.GetActiveScene().name;
         string num = currentScene.Substring(5);
         int i = Int32.Parse(num);
-        if (i != 0)
+        if (i != 0 || i != 21)
         {
             GUI.Label(new Rect(200, 20, 90, 35), "Steps: " + steps, style);
             GUI.Label(new Rect(300, 20, 100, 35), "Pushes: " + pushes, style);
             GUI.Label(new Rect(410, 20, 90, 35), "Score: " + calculateScore(), style);
             GUI.Label(new Rect(510, 20, 70, 35), "Par: " + GameUtility.getLevelPar(), style);
         }
-        if (gameOver&&i!=0)
+        if (gameOver && (i!=0 || i!=21))
         {
             string endGameString = "You Win!\nYour score was: " + calculateScore() + "\nPar was: " +
                                    GameUtility.getLevelPar();
