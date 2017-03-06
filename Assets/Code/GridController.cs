@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
-
 public class GridController : MonoBehaviour {
 
     public Transform[,] gridMatrix = new Transform[20,20];
@@ -16,6 +15,8 @@ public class GridController : MonoBehaviour {
     float startTime = 0.0f;
     float goalTime =  0.0f;
     List<GameObject> fades = new List<GameObject>();
+    List<GameObject> newWalls = new List<GameObject>(); //Initial color, gameobject
+    List<Vector4> oldColors = new List<Vector4>();
 	// Use this for initialization
 	void Start ()
     {
@@ -104,6 +105,18 @@ public class GridController : MonoBehaviour {
 
     }
 
+    internal void turnBlack()
+    {
+        float currTime = Time.time;
+        float percentage = 1.0f - (goalTime - currTime) / (goalTime - startTime);
+        for(int i = 0; i <newWalls.Count; ++i)
+        {
+            SpriteRenderer sr = newWalls[i].transform.GetComponent<SpriteRenderer>();
+            sr.color = Vector4.Lerp(oldColors[i], new Vector4(0, 0, 0, 1f), percentage);
+        }
+
+    }
+
     internal void clearRow()
     {
 
@@ -170,7 +183,9 @@ public class GridController : MonoBehaviour {
                             int yCheck = GameUtility.gameToGridCoord(leftoverSquare.transform.position.y);
                             if (!destructions.Contains(yCheck))
                             {
-                                leftoverSquare.gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1);
+                                //leftoverSquare.gameObject.GetComponent<SpriteRenderer>().color = new Vector4(0, 0, 0, 1);
+                                oldColors.Add(leftoverSquare.transform.GetComponent<SpriteRenderer>().color);
+                                newWalls.Add(leftoverSquare.gameObject);
                             }
                            
                         }
@@ -203,6 +218,7 @@ public class GridController : MonoBehaviour {
         if (goalTime > Time.time)
         {
             fadeAndDestroy();
+            turnBlack();
         }
         else
         {
