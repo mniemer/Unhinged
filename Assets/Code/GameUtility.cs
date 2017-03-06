@@ -25,7 +25,7 @@ public static class GameUtility
         17, // level 11
         19, // level 12
         17, // level 13
-        11, // level 14
+        21, // level 14
         15, // level 15
         25, // level 16
         50, // level 17
