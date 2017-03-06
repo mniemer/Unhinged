@@ -14,7 +14,6 @@ public class SquareController : MonoBehaviour {
 	void Start () {
         startColor = transform.GetComponent<SpriteRenderer>().color;
         changeColors = false;
-        Debug.Log(startColor);
 	}
 	
 	// Update is called once per frame
