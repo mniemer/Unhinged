@@ -341,27 +341,41 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnGUI()
     {
+        Texture2D texture = new Texture2D(1, 1);
+        texture.SetPixel(1, 1, Color.white);
+        texture.wrapMode = TextureWrapMode.Repeat;
+        texture.Apply();
         GUIStyle style= new GUIStyle();
         style.fontSize = 20;
-        style.normal.textColor = Color.red;
+        style.alignment = TextAnchor.MiddleCenter;
+        style.normal.textColor = Color.black;
+        style.normal.background = texture;
+
+        Texture2D endGameTexture = new Texture2D(1, 1);
+        endGameTexture.SetPixel(1, 1, Color.black);
+        endGameTexture.wrapMode = TextureWrapMode.Repeat;
+        endGameTexture.Apply();
         GUIStyle endGame = new GUIStyle();
         endGame.fontSize = 50;
+        endGame.alignment = TextAnchor.MiddleCenter;
         endGame.normal.textColor = Color.cyan;
+        endGame.normal.background = endGameTexture;
+
         string currentScene = SceneManager.GetActiveScene().name;
         string num = currentScene.Substring(5);
         int i = Int32.Parse(num);
         if (i != 0)
         {
-
-            GUI.Label(new Rect(10, 10, 10000, 5000), "Steps:" + steps, style);
-            GUI.Label(new Rect(300, 10, 1000, 500), "Pushes:" + pushes, style);
+            GUI.Label(new Rect(200, 20, 90, 35), "Steps: " + steps, style);
+            GUI.Label(new Rect(300, 20, 100, 35), "Pushes: " + pushes, style);
+            GUI.Label(new Rect(410, 20, 90, 35), "Score: " + calculateScore(), style);
+            GUI.Label(new Rect(510, 20, 70, 35), "Par: " + GameUtility.getLevelPar(), style);
         }
         if (gameOver&&i!=0)
         {
-            
-            GUI.Label(new Rect(400, 10, 1000, 500), "You Win!");
-            GUI.Label(new Rect(100, 100, 5000, 5000), "Your score was: " + calculateScore().ToString(), endGame);
-            GUI.Label(new Rect(100, 150, 5000, 5000), "Par is: " + GameUtility.getLevelPar().ToString(), endGame);
+            string endGameString = "You Win!\nYour score was: " + calculateScore() + "\nPar was: " +
+                                   GameUtility.getLevelPar();
+           GUI.Label(new Rect(600, 200, 500, 250), endGameString, endGame);
         }
     }
 
