@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public static class GameUtility
 {
-    public static int numLevels = 20;
+    public static int numLevels = 21;
 
     public static int gameToGridCoord(float coord)
     {
