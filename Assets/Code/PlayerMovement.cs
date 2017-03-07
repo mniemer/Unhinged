@@ -361,6 +361,9 @@ public class PlayerMovement : MonoBehaviour {
         endGame.normal.textColor = Color.cyan;
         endGame.normal.background = endGameTexture;
 
+        //Debug.Log("Width: " + Screen.width);
+        //Debug.Log("Height: " + Screen.height);
+
         string currentScene = SceneManager.GetActiveScene().name;
         string num = currentScene.Substring(5);
         int i = Int32.Parse(num);
