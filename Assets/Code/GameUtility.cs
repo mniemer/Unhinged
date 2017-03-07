@@ -29,9 +29,9 @@ public static class GameUtility
         15, // level 15
         25, // level 16
         50, // level 17
-        18, // level 18 NEED TO FINISH
-        19, // level 19 NEED TO FINISH
-        20 //  level 20 NEED TO FINISH
+        35, // level 18 NEED TO FINISH
+        15, // level 19 NEED TO FINISH
+        35 //  level 20 NEED TO FINISH
 
     };
     public static int numLevels = 22;
