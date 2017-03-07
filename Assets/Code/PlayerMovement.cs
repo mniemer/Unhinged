@@ -379,6 +379,25 @@ public class PlayerMovement : MonoBehaviour {
                                    GameUtility.getLevelPar() +".";
            GUI.Label(new Rect(500, 200, 500, 250), endGameString, endGame);
         }
+        if (i == 1)
+        {
+            string helpStr =
+                "Use the arrow keys to move around. Pressing W, A, S, and D will push up, left, down, and right, respectively.\n" +
+                "Push blocks to make them rotate about their hinge. Blocks can't rotate through other blocks, walls, or you!";
+            GUI.Label(new Rect(200, 100, 1075, 70), helpStr, style);
+        }
+        if (i == 2)
+        {
+            string helpStr =
+                "If you line up blocks horizontally from wall to wall, the whole line will clear (similar to Tetris).\n" +
+                "Keep this in mind as you attempt to solve each puzzle!";
+            GUI.Label(new Rect(200, 100, 1075, 70), helpStr, style);
+        }
+        if (i == 3)
+        {
+            string helpStr = "Press R to reset a puzzle at any time. Use N and P to navigate to the next or previous puzzles.";
+            GUI.Label(new Rect(200, 675, 1075, 35), helpStr, style);
+        }
     }
 
 
