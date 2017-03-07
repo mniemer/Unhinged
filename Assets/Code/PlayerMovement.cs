@@ -341,12 +341,17 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnGUI()
     {
+        //Debug.Log("Width: " + Screen.width);
+        //Debug.Log("Height: " + Screen.height);
+        float ratioWidth = Screen.width / 1474f;
+        float ratioHeight = Screen.height / 733f;
+
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(1, 1, Color.white);
         texture.wrapMode = TextureWrapMode.Repeat;
         texture.Apply();
         GUIStyle style= new GUIStyle();
-        style.fontSize = 20;
+        style.fontSize = Convert.ToInt32(20*(Mathf.Min(ratioWidth, ratioHeight)));
         style.alignment = TextAnchor.MiddleCenter;
         style.normal.textColor = Color.black;
         style.normal.background = texture;
@@ -356,13 +361,10 @@ public class PlayerMovement : MonoBehaviour {
         endGameTexture.wrapMode = TextureWrapMode.Repeat;
         endGameTexture.Apply();
         GUIStyle endGame = new GUIStyle();
-        endGame.fontSize = 50;
+        endGame.fontSize = Convert.ToInt32(50*(Mathf.Min(ratioWidth, ratioHeight)));
         endGame.alignment = TextAnchor.MiddleCenter;
         endGame.normal.textColor = Color.cyan;
         endGame.normal.background = endGameTexture;
-
-        //Debug.Log("Width: " + Screen.width);
-        //Debug.Log("Height: " + Screen.height);
 
         string currentScene = SceneManager.GetActiveScene().name;
         string num = currentScene.Substring(5);
@@ -372,34 +374,34 @@ public class PlayerMovement : MonoBehaviour {
             string scoreStr = "Score: " + calculateScore() + " | Steps: " + steps + " | Pushes: " + pushes;
             string levelStr = "Level " + i + " | Par: " + GameUtility.getLevelPar();
             string calcStr = "Score = 0.25*Steps + Pushes";
-            GUI.Label(new Rect(200, 20, 200, 35), levelStr, style);
-            GUI.Label(new Rect(410, 20, 300, 35), scoreStr, style);
-            GUI.Label(new Rect(975, 20, 300, 35), calcStr, style);
+            GUI.Label(new Rect(200*ratioWidth, 20*ratioHeight, 200*ratioWidth, 35*ratioHeight), levelStr, style);
+            GUI.Label(new Rect(410*ratioWidth, 20*ratioHeight, 300*ratioWidth, 35*ratioHeight), scoreStr, style);
+            GUI.Label(new Rect(975*ratioWidth, 20*ratioHeight, 300*ratioWidth, 35*ratioHeight), calcStr, style);
         }
         if (gameOver && (i!=0 && i!=21))
         {
             string endGameString = "You Win!\nYour score was " + calculateScore() + ".\nPar was " +
                                    GameUtility.getLevelPar() +".";
-           GUI.Label(new Rect(500, 200, 500, 250), endGameString, endGame);
+           GUI.Label(new Rect(500*ratioWidth, 200*ratioHeight, 500*ratioWidth, 250*ratioHeight), endGameString, endGame);
         }
         if (i == 1)
         {
             string helpStr =
                 "Use the arrow keys to move around. Pressing W, A, S, and D will push up, left, down, and right, respectively.\n" +
                 "Push blocks to make them rotate about their hinge. Blocks can't rotate through other blocks, walls, or you!";
-            GUI.Label(new Rect(200, 100, 1075, 70), helpStr, style);
+            GUI.Label(new Rect(200*ratioWidth, 100*ratioHeight, 1075*ratioWidth, 70*ratioHeight), helpStr, style);
         }
         if (i == 2)
         {
             string helpStr =
                 "If you line up blocks horizontally from wall to wall, the whole line will clear (similar to Tetris).\n" +
                 "Keep this in mind as you attempt to solve each puzzle!";
-            GUI.Label(new Rect(200, 100, 1075, 70), helpStr, style);
+            GUI.Label(new Rect(200*ratioWidth, 100*ratioHeight, 1075*ratioWidth, 70*ratioHeight), helpStr, style);
         }
         if (i == 3)
         {
             string helpStr = "Press R to reset a puzzle at any time. Use N and P to navigate to the next or previous puzzles.";
-            GUI.Label(new Rect(200, 675, 1075, 35), helpStr, style);
+            GUI.Label(new Rect(200*ratioWidth, 675*ratioHeight, 1075*ratioWidth, 35*ratioHeight), helpStr, style);
         }
     }
 
