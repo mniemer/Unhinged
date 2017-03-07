@@ -366,15 +366,17 @@ public class PlayerMovement : MonoBehaviour {
         int i = Int32.Parse(num);
         if (i != 0 && i != 21)
         {
-            GUI.Label(new Rect(200, 20, 90, 35), "Steps: " + steps, style);
-            GUI.Label(new Rect(300, 20, 100, 35), "Pushes: " + pushes, style);
-            GUI.Label(new Rect(410, 20, 90, 35), "Score: " + calculateScore(), style);
-            GUI.Label(new Rect(510, 20, 70, 35), "Par: " + GameUtility.getLevelPar(), style);
+            string scoreStr = "Score: " + calculateScore() + " | Steps: " + steps + " | Pushes: " + pushes;
+            string levelStr = "Level " + i + " | Par: " + GameUtility.getLevelPar();
+            string calcStr = "Score = 0.25*Steps + Pushes";
+            GUI.Label(new Rect(200, 20, 200, 35), levelStr, style);
+            GUI.Label(new Rect(410, 20, 300, 35), scoreStr, style);
+            GUI.Label(new Rect(975, 20, 300, 35), calcStr, style);
         }
         if (gameOver && (i!=0 && i!=21))
         {
-            string endGameString = "You Win!\nYour score was: " + calculateScore() + "\nPar was: " +
-                                   GameUtility.getLevelPar();
+            string endGameString = "You Win!\nYour score was " + calculateScore() + ".\nPar was " +
+                                   GameUtility.getLevelPar() +".";
            GUI.Label(new Rect(500, 200, 500, 250), endGameString, endGame);
         }
     }
