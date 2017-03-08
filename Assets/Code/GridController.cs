@@ -124,6 +124,7 @@ public class GridController : MonoBehaviour {
             SpriteRenderer sr = newWall.transform.GetComponent<SpriteRenderer>();
             sr.color = new Vector4(0, 0, 0, 1f);
         }
+        
     }
 
     internal void clearRow()
@@ -139,10 +140,18 @@ public class GridController : MonoBehaviour {
             {
                 if (gridMatrix[i, j] != null)
                 {
-                    if (gridMatrix[i, j].tag.Equals("Square") || gridMatrix[i, j].tag.Equals("Block") || gridMatrix[i, j].tag.Equals("Hinge"))
+                    if (gridMatrix[i, j].tag.Equals("Square") || gridMatrix[i, j].tag.Equals("Block") || gridMatrix[i, j].tag.Equals("Hinge") || gridMatrix[i,j].tag.Equals("Wall"))
                     {
                         blockCounter++;
                     }
+                    /*else if (gridMatrix[i, j].tag.Equals("Wall"))
+                    {
+                        for (int looper = 0; looper < gridMatrix[i, j].childCount; ++looper)
+                        {
+                            Transform wallsCurrChild = gridMatrix[i, j].GetChild(looper);
+                            in
+                        }
+                    }*/
                 }
             }
             if (blockCounter == arenaLength && !destructions.Contains(j))
