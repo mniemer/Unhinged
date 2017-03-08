@@ -124,7 +124,8 @@ public class GridController : MonoBehaviour {
             SpriteRenderer sr = newWall.transform.GetComponent<SpriteRenderer>();
             sr.color = new Vector4(0, 0, 0, 1f);
         }
-        
+        oldColors.Clear();
+        newWalls.Clear();
     }
 
     internal void clearRow()
