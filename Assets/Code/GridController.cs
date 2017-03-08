@@ -169,7 +169,13 @@ public class GridController : MonoBehaviour {
                         SquareController[] parentChildren = oldParent.GetComponentsInChildren<SquareController>();
                         foreach(SquareController child in parentChildren)
                         {
-                            if (GameUtility.gameToGridCoord(child.transform.position.y) != j)
+                            GameObject newParent = new GameObject();
+                            newParent.transform.tag = "Wall";
+                            newParent.transform.SetParent(transform, true);
+                            newParent.transform.position = child.gameObject.transform.position;
+                            child.gameObject.transform.SetParent(newParent.transform, true);
+                            int myY = GameUtility.gameToGridCoord(child.transform.position.y);
+                            if (!destructions.Contains(myY))
                             {
                                 oldColors.Add(child.transform.GetComponent<SpriteRenderer>().color);
                                 newWalls.Add(child.gameObject);
