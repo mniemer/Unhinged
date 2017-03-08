@@ -164,6 +164,17 @@ public class GridController : MonoBehaviour {
                     {
                         fades.Add(square);
                         //Destroy(square);
+                        Transform oldParent = square.transform.parent;
+                        square.transform.parent = null;
+                        SquareController[] parentChildren = oldParent.GetComponentsInChildren<SquareController>();
+                        foreach(SquareController child in parentChildren)
+                        {
+                            if (GameUtility.gameToGridCoord(child.transform.position.y) != j)
+                            {
+                                oldColors.Add(child.transform.GetComponent<SpriteRenderer>().color);
+                                newWalls.Add(child.gameObject);
+                            }
+                        }
 
                     }
                 }
