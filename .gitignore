@@ -2,3 +2,6 @@
 /Library/*
 /obj/*
 /.vs/*
+*.exe
+/Unhinged_Data/*
+
