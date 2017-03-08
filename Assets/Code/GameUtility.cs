@@ -14,24 +14,24 @@ public static class GameUtility
         0, //  level 0 (intro), don't touch
         9, //  level 1
         12, //  level 2
-        15, //  level 3
-        14, //  level 4
-        12, //  level 5
-        17, //  level 6
-        13, //  level 7
-        20, //  level 8
-        14, //  level 9
+        14, //  level 3
+        12, //  level 4
+        10, //  level 5
+        14, //  level 6
+        14, //  level 7
+        19, //  level 8
+        11, //  level 9
         17, // level 10
         17, // level 11
-        19, // level 12
+        16, // level 12
         17, // level 13
-        21, // level 14
+        19, // level 14
         15, // level 15
-        25, // level 16
-        50, // level 17
-        35, // level 18
+        22, // level 16
+        31, // level 17
+        17, // level 18
         15, // level 19 
-        35, //  level 20
+        31, //  level 20
         0 // level 21 (credits)
 
     };

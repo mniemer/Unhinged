@@ -375,7 +375,7 @@ public class PlayerMovement : MonoBehaviour {
             string levelStr = "Level " + i + " | Par: " + GameUtility.getLevelPar();
             string calcStr = "Score = 0.25*Steps + Pushes";
             GUI.Label(new Rect(200*ratioWidth, 20*ratioHeight, 200*ratioWidth, 35*ratioHeight), levelStr, style);
-            GUI.Label(new Rect(410*ratioWidth, 20*ratioHeight, 300*ratioWidth, 35*ratioHeight), scoreStr, style);
+            GUI.Label(new Rect(410*ratioWidth, 20*ratioHeight, 350*ratioWidth, 35*ratioHeight), scoreStr, style);
             GUI.Label(new Rect(975*ratioWidth, 20*ratioHeight, 300*ratioWidth, 35*ratioHeight), calcStr, style);
         }
         if (gameOver && (i!=0 && i!=21))
